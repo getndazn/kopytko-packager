@@ -1,0 +1,49 @@
+{
+  "name": "@kopytko/packager",
+  "version": "0.1.0",
+  "description": "Modern Roku apps packager",
+  "scripts": {
+    "lint": "eslint ./"
+  },
+  "keywords": ["roku", "brightscript"],
+  "contributors": [
+    {
+      "name": "Paweł Hertman",
+      "email": "pawel@hertman.eu",
+      "url": "http://hertman.eu/"
+    },
+    {
+      "name": "Radosław Zambrowski",
+      "email": "radoslaw.zambrowski@dazn.com"
+    },
+    {
+      "name": "Tomasz Rejment",
+      "email": "tomasz.rejment@dazn.com"
+    },
+    {
+      "name": "Błażej Chełkowski",
+      "email": "blazej.chelkowski@dazn.com"
+    }
+  ],
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "adm-zip": "^0.5.5",
+    "dotenv": "^9.0.2",
+    "fs-extra": "^10.0.0",
+    "glob-promise": "^4.1.0",
+    "minimist": "^1.2.5",
+    "ora": "^5.4.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "ropm": "^0.10.0",
+    "telnet-client": "^1.4.9",
+    "terminal-kit": "^2.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/eslint-parser": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "eslint": "^7.26.0"
+  }
+}

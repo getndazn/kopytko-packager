@@ -26,7 +26,11 @@
     }
   ],
   "license": "UNLICENSED",
-  "private": true,
+  "publishConfig": {
+    "@dazn:registry": "https://registry.npmjs.org/",
+    "access": "restricted"
+  },
+  "files": ["scripts", "src", "base-manifest.js"],
   "dependencies": {
     "adm-zip": "^0.5.5",
     "dotenv": "^9.0.2",

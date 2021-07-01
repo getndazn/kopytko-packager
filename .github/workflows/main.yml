@@ -15,10 +15,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: Setup NPM token
-        run: npm config set //registry.npmjs.org/:_authToken $GLOBAL_NPM_TOKEN
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GLOBAL_GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.GLOBAL_NPM_TOKEN }}
-        run: npx semantic-release
+      - name: Publish
+        run: |
+          npm config set //registry.npmjs.org/:_authToken $GLOBAL_NPM_TOKEN
+          npm publish

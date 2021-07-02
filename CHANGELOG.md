@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/getndazn/kopytko-packager/compare/v1.3.0...v1.3.1) (2021-07-02)
+
+
+### Bug Fixes
+
+* Removed configured installing semantic-release dependencies ([76cc50f](https://github.com/getndazn/kopytko-packager/commit/76cc50fc6f34d7e98f6cd284cb0eaab7f81e95fb))
+
 # [1.3.0](https://github.com/getndazn/kopytko-packager/compare/v1.2.0...v1.3.0) (2021-07-02)
 
 

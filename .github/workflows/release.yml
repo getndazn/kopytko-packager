@@ -16,6 +16,7 @@ jobs:
         with:
           node-version: 14
       - name: Semantic Release
+        id: release
         uses: cycjimmy/semantic-release-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GLOBAL_GITHUB_TOKEN }}
@@ -23,3 +24,17 @@ jobs:
           extra_plugins: |
             @semantic-release/changelog@5.0.1
             @semantic-release/git@9.0.0
+      - name: Open sync PR to develop
+        id: pr
+        uses: tretuna/sync-branches@1.2.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GLOBAL_GITHUB_TOKEN }}
+          FROM_BRANCH: master
+          TO_BRANCH: develop
+          PULL_REQUEST_TITLE: Develop sync with v${{ steps.release.outputs.new_release_version }}
+          PULL_REQUEST_BODY:
+      - name: Auto-merge sync PR to develop
+        uses: pascalgn/automerge-action@v0.14.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GLOBAL_GITHUB_TOKEN }}
+          PULL_REQUEST: ${{ steps.pr.outputs.PULL_REQUEST_NUMBER }}

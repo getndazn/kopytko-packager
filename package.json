@@ -26,10 +26,7 @@
     }
   ],
   "license": "UNLICENSED",
-  "publishConfig": {
-    "@dazn:registry": "https://registry.npmjs.org/",
-    "access": "restricted"
-  },
+  "private": true,
   "files": ["scripts", "src", "base-manifest.js"],
   "dependencies": {
     "adm-zip": "^0.5.5",
@@ -49,5 +46,8 @@
     "@babel/eslint-parser": "^7.14.3",
     "@babel/preset-env": "^7.14.2",
     "eslint": "^7.26.0"
+  },
+  "release": {
+    "plugins": ["@semantic-release/commit-analyzer", "@semantic-release/release-notes-generator", "@semantic-release/github"]
   }
 }

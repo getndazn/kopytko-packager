@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/getndazn/kopytko-packager/compare/v1.3.1...v1.4.0) (2021-07-02)
+
+
+### Features
+
+* Syncing develop after release ([eae30f8](https://github.com/getndazn/kopytko-packager/commit/eae30f8996d7cda35bbd4ff40af49a5ad3d9af03))
+
 ## [1.3.1](https://github.com/getndazn/kopytko-packager/compare/v1.3.0...v1.3.1) (2021-07-02)
 
 

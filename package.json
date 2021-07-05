@@ -1,6 +1,6 @@
 {
   "name": "@kopytko/packager",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Modern Roku apps packager",
   "scripts": {
     "lint": "eslint ./"

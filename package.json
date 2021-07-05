@@ -5,7 +5,10 @@
   "scripts": {
     "lint": "eslint ./"
   },
-  "keywords": ["roku", "brightscript"],
+  "keywords": [
+    "roku",
+    "brightscript"
+  ],
   "contributors": [
     {
       "name": "Paweł Hertman",
@@ -27,6 +30,11 @@
   ],
   "license": "UNLICENSED",
   "private": true,
+  "files": [
+    "scripts",
+    "src",
+    "base-manifest.js"
+  ],
   "dependencies": {
     "adm-zip": "^0.5.5",
     "dotenv": "^9.0.2",
@@ -45,5 +53,15 @@
     "@babel/eslint-parser": "^7.14.3",
     "@babel/preset-env": "^7.14.2",
     "eslint": "^7.26.0"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      "@semantic-release/changelog",
+      "@semantic-release/git",
+      "@semantic-release/github"
+    ]
   }
 }

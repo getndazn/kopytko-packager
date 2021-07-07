@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const config = require('../../config');
+const config = require('../config');
 const KopytkoError = require('../errors/kopytko-error');
 const utils = require('../utils');
 

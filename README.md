@@ -284,16 +284,16 @@ Each of dependency will be automatically added as a `</script>` entry into the s
 Nested dependencies and copying external NPM module files to the package supported.
 
 ### Configuration
-Add predefined, built-in `kopytko-import-dependencies` and, if you use external libraries, `kopytko-copy-dependencies`
-plugins into your .kopytkorc config file. We recommend configuring `kopytko-copy-dependencies` to be run before environment plugins:
+Add predefined, built-in `kopytko-import-dependencies` and, if you use external libraries, `kopytko-copy-external-dependencies`
+plugins into your .kopytkorc config file. We recommend configuring `kopytko-copy-external-dependencies` to be run before environment plugins:
  ```json
  "plugins": [
-    { "name": "kopytko-copy-dependencies", "preEnvironmentPlugin": true },
+    { "name": "kopytko-copy-external-dependencies", "preEnvironmentPlugin": true },
     "kopytko-import-dependencies"
   ],
  ```
 
-- `kopytko-copy-dependencies` copies all (even unused in the project) files from dependency modules
+- `kopytko-copy-external-dependencies` copies all (even unused in the project) files from dependency modules
 - `kopytko-import-depenencies` translates `@import` annotations and imports related dependencies in XML files
 
 ### Importing internal dependencies

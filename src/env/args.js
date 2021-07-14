@@ -16,7 +16,7 @@ const args = minimist(process.argv.slice(2), {
      * ENV=production npm start
      * npm start -- --env=production
      */
-    env: env || process.env.ENV || '',
+    env: env || process.env.ENV || 'dev',
 
     /**
      * @type {string} Roku Developer password.

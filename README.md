@@ -65,7 +65,7 @@ The main configuration file `.kopytkorc` should be placed in the root folder of 
 ```json
 {
   "archivePath": "/dist/kopytko_archive.zip",
-  "baseManifest": "/manifest/default.js",
+  "baseManifest": "/manifest/base.js",
   "localManifestOverride": "/manifest/local.js",
   "pluginDefinitions": {},
   "plugins": [],

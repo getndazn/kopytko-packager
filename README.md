@@ -30,7 +30,7 @@ npm install @kopytko/packager --save-dev
 2. Create `.kopytkorc` in the root folder with minimal configuration
 ```json
 {
-  "baseManifest": "manifest/manifest.js"
+  "baseManifest": "manifest/base.js"
 }
 ```
 - If your app code is not located under default `/app`, configure it in a `sourceDir` attribute

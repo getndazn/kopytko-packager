@@ -5,9 +5,9 @@ const KopytkorcReader = require('./kopytkorc-reader');
 const kopytkorc = new KopytkorcReader();
 
 function getManifestConfig() {
-  const { defaultConfig, envManifestConfig, localManifestOverride } = kopytkorc.getManifestConfig(args.env);
+  const { baseConfig, envManifestConfig, localManifestOverride } = kopytkorc.getManifestConfig(args.env);
 
-  return utils.mergeDeep({}, defaultConfig, envManifestConfig, localManifestOverride);
+  return utils.mergeDeep({}, baseConfig, envManifestConfig, localManifestOverride);
 }
 
 function getPluginNames() {

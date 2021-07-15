@@ -4,6 +4,7 @@ const request = require('request-promise');
 const KopytkoError = require('../errors/kopytko-error');
 
 module.exports = class AppDeployer {
+  _MESSAGE_COMPILATION_FAILED = 'Install Failure: Compilation Failed.';
   _MESSAGE_INSTALL_SUCCESS = 'Install Success.';
   _MESSAGE_REGEX = /'Set message content', '([^']+)'/g;
 
@@ -45,6 +46,10 @@ module.exports = class AppDeployer {
 
       if (error.statusCode === 577) {
         throw new KopytkoError('Update Roku OS');
+      }
+
+      if (error.message.includes(this._MESSAGE_COMPILATION_FAILED)) {
+        throw new KopytkoError('Compilation Failed');
       }
 
       throw new KopytkoError(`Unknown error. HTTP status code: ${error.statusCode}`, error);

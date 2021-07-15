@@ -30,13 +30,13 @@ npm install @kopytko/packager --save-dev
 2. Create `.kopytkorc` in the root folder with minimal configuration
 ```json
 {
-  "defaultManifest": "manifest/default.js"
+  "baseManifest": "manifest/base.js"
 }
 ```
 - If your app code is not located under default `/app`, configure it in a `sourceDir` attribute
-- Path to default manifest is only example
+- Path to base manifest is only example
 
-3. Create a default manifest file
+3. Create a base manifest file
 ```js
 const baseManifest = require('@kopytko/packager/base-manifest.js');
 
@@ -65,7 +65,7 @@ The main configuration file `.kopytkorc` should be placed in the root folder of 
 ```json
 {
   "archivePath": "/dist/kopytko_archive.zip",
-  "defaultManifest": "/manifest/default.js",
+  "baseManifest": "/manifest/base.js",
   "localManifestOverride": "/manifest/local.js",
   "pluginDefinitions": {},
   "plugins": [],
@@ -87,7 +87,7 @@ The main configuration file `.kopytkorc` should be placed in the root folder of 
 ```
 Available fields:
 - `archivePath [@type string @optional]` - path to the app archive to generate; default value as in the example file above
-- `defaultManifest [@type string @required]` - base manifest file path. Having the file is sufficient to run the Roku app
+- `baseManifest [@type string @required]` - base manifest file path. Having the file is sufficient to run the Roku app
 - `localManifestOverride [@type string @optional]` - path to the configuration file that overrides all other settings. Usually the file is on the git ignore list
 - `pluginDefinitions [@type [name: string]:object @optional` - plugin definitions (see [plugins](#plugins))
 - `plugins @optional` - global plugins list (see [plugins](#plugins))
@@ -97,7 +97,7 @@ Available fields:
 - `sourceDir [@type string @optional]` - directory of app's source code; default value as in the example file above
 - `tempDir [@type string @optional]` - directory of a temporary folder used during a building process as a project directory. After build, it is removed; default value as in the example file above
 
-The configuration files work in waterfall scheme meaning that `defaultManifest` is loaded as the first file. Each environment entry overrides default configuration. The `localManifestOverride` is loaded as the last one overriding all others.
+The configuration files work in waterfall scheme meaning that `baseManifest` is loaded as the first file. Each environment entry overrides base configuration. The `localManifestOverride` is loaded as the last one overriding all others.
 
 ## Manifest file
 Kopytko packager dynamically generates the manifest file by transpiling JavaScript configuration files,
@@ -136,7 +136,7 @@ Example usage:
 ```
 
 Available parameters:
-- `env` - your environment value that matches entry in the [.kopytkorc](#.kopytkorc-file) file
+- `env` - your environment value that matches entry in the [.kopytkorc](#.kopytkorc-file) file. Default value (if not passed) is "dev"
 - `rokuDevPassword` - dev password
 - `rokuDevUser` - dev user
 - `rokuIP` - IP of your roku device
@@ -244,7 +244,7 @@ The plugins execute in the following order:
 2. All plugins defined in the environment `plugins` array, that are strings or objects containing postGlobalPlugin with value `false`, according to the order of the array.
 3. All plugins defined in the global `plugins` array, that are strings or objects containing preEnvironmentPlugin with value `false`, according to the order of the array.
 4. All plugins defined in the environment `plugins` array, that are objects containing postGlobalPlugin with value `true`, according to the order of the array.
-5. All kopytko-packager build-in plugins. For now, it is only a plugin generating the manifest file.
+5. All kopytko-packager built-in plugins. For now, it is only a plugin generating the manifest file.
 
 *Example:*
 ```json
@@ -284,16 +284,16 @@ Each of dependency will be automatically added as a `</script>` entry into the s
 Nested dependencies and copying external NPM module files to the package supported.
 
 ### Configuration
-Add predefined, built-in `kopytko-import-dependencies` and, if you use external libraries, `kopytko-copy-dependencies`
-plugins into your .kopytkorc config file. We recommend configuring `kopytko-copy-dependencies` to be run before environment plugins:
+Add predefined, built-in `kopytko-import-dependencies` and, if you use external libraries, `kopytko-copy-external-dependencies`
+plugins into your .kopytkorc config file. We recommend configuring `kopytko-copy-external-dependencies` to be run before environment plugins:
  ```json
  "plugins": [
-    { "name": "kopytko-copy-dependencies", "preEnvironmentPlugin": true },
+    { "name": "kopytko-copy-external-dependencies", "preEnvironmentPlugin": true },
     "kopytko-import-dependencies"
   ],
  ```
 
-- `kopytko-copy-dependencies` copies all (even unused in the project) files from dependency modules
+- `kopytko-copy-external-dependencies` copies all (even unused in the project) files from dependency modules
 - `kopytko-import-depenencies` translates `@import` annotations and imports related dependencies in XML files
 
 ### Importing internal dependencies

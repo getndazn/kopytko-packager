@@ -6,6 +6,8 @@ const KopytkoError = require('../errors/kopytko-error');
 const utils = require('../utils');
 
 module.exports = class KopytkorcReader {
+  _DEFAULT_ENV = 'dev';
+
   _kopytkorc;
 
   constructor() {
@@ -25,25 +27,25 @@ module.exports = class KopytkorcReader {
   }
 
   getManifestConfig(env) {
-    const defaultConfig = this._getDefaultManifestConfig();
+    const baseConfig = this._getBaseManifestConfig();
     const envManifestConfig = this._getEnvManifestConfig(env);
     const localManifestOverride = this._getLocalManifestConfig();
 
-    if (!Object.entries(defaultConfig).length) {
-      throw new KopytkoError(`Check defaultManifest file. It should not be empty.`);
+    if (!Object.entries(baseConfig).length) {
+      throw new KopytkoError(`Check baseManifest file. It should not be empty.`);
     }
 
-    return { defaultConfig, envManifestConfig, localManifestOverride };
+    return { baseConfig, envManifestConfig, localManifestOverride };
   }
 
   getEnvConfig(env) {
-    if (!env) {
-      return {};
-    }
-
     const envConfig = this._kopytkorc.environments[env];
 
     if (!envConfig) {
+      if (env === this._DEFAULT_ENV) {
+        return {};
+      }
+
       throw new KopytkoError(`There is no config defined for ${env} environment.`);
     }
 
@@ -60,8 +62,8 @@ module.exports = class KopytkorcReader {
     return this._kopytkorc.pluginDefinitions || {};
   }
 
-  _getDefaultManifestConfig() {
-    return this._getManifestConfig(this._kopytkorc.defaultManifest);
+  _getBaseManifestConfig() {
+    return this._getManifestConfig(this._kopytkorc.baseManifest);
   }
 
   _getConfigField(env, configFieldNeme) {

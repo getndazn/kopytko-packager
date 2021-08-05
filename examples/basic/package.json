@@ -1,0 +1,13 @@
+{
+  "name": "basic-example",
+  "version": "1.0.0",
+  "description": "Basic example kopytko-packager based app",
+  "scripts": {
+    "build": "node node_modules/@kopytko/packager/scripts/build.js",
+    "start": "node node_modules/@kopytko/packager/scripts/start.js"
+  },
+  "private": true,
+  "devDependencies": {
+    "@kopytko/packager": "file:../.."
+  }
+}

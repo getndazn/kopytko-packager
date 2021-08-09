@@ -7,7 +7,7 @@
       text="Kopytko Packager: Basic example"
       horizOrigin="center"
       vertOrigin="center"
-      translation="[640,360]"
+      translation="[960, 540]"
     />
   </children>
 </component>

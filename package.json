@@ -44,7 +44,7 @@
     "ora": "^5.4.0",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
-    "ropm": "^0.10.0",
+    "ropm": "git://github.com/pawelhertman/ropm.git",
     "telnet-client": "^1.4.9",
     "terminal-kit": "^2.1.0"
   },

@@ -39,7 +39,7 @@ module.exports = class KopytkorcReader {
   }
 
   getEnvConfig(env) {
-    const envConfig = this._kopytkorc.environments[env];
+    const envConfig = this._kopytkorc.environments?.[env];
 
     if (!envConfig) {
       if (env === this._DEFAULT_ENV) {

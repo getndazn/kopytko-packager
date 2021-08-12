@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/getndazn/kopytko-packager/compare/v1.1.0...v1.2.0) (2021-08-12)
+
+
+### Features
+
+* Optional environments config field + basic example app ([#12](https://github.com/getndazn/kopytko-packager/issues/12)) ([e93fd56](https://github.com/getndazn/kopytko-packager/commit/e93fd5656601e510b8a7567c2b35d2f735cf264d))
+
 # [1.1.0](https://github.com/getndazn/kopytko-packager/compare/v1.0.1...v1.1.0) (2021-07-15)
 
 

@@ -14,7 +14,6 @@ const flattenModules = (modules, list) => Object.entries(modules)
       list[versionedModuleName] = {
         dependencies: Object.entries(details.dependencies).map(([name, details]) => `${name}@v${details.version.major}`),
         dir: details.dir,
-        kopytkoModuleDir: details.kopytkoModuleDir,
         prefix: details.prefix,
         version: details.version,
       };

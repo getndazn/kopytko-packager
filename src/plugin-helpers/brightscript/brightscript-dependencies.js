@@ -27,10 +27,10 @@ module.exports = class BrightscriptDependencies {
     this._filePath = filePath;
     this._modulePrefix = this._getModulePrefixByFilePath(filePath);
 
-    const internalItemCreator = new BrightscriptInternalDependencyItemCreator(this._rootDir, this._modulePrefix, modules);
+    const internalItemCreator = new BrightscriptInternalDependencyItemCreator(this._rootDir, this._modulePrefix, filePath);
     this._importDependencyCollection = this.getDependencyCollection(new BrightscriptInternalImportFinder(internalItemCreator));
 
-    const externalItemCreator = new BrightscriptExternalDependencyItemCreator(this._rootDir, this._modulePrefix, modules);
+    const externalItemCreator = new BrightscriptExternalDependencyItemCreator(this._rootDir, this._modulePrefix, filePath, modules);
     const externalImportDependencyCollection = this.getDependencyCollection(new BrightscriptExternalImportFinder(externalItemCreator));
     externalImportDependencyCollection.getItems().forEach(dependency => this._importDependencyCollection.add(dependency));
   }

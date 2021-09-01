@@ -21,12 +21,12 @@ const copyModule = async (moduleName, moduleDetails, tempDir) => {
 
   if (!wasComponentsDirCopied && !wasSourceDirCopied) {
     throw new Error(`'${moduleName}' is an invalid Kopytko Module because it has neither /components nor /source
-      directory in its '${moduleDetails.kopytkoModuleDir}' source directory. Please verify it or get rid of this dependency.`);
+      directory in its source directory. Please verify it or get rid of this dependency.`);
   }
 }
 
 const copyModuleDir = async (moduleDetails, dir, tempDir) => {
-  const sourceDir = path.join(moduleDetails.dir, moduleDetails.kopytkoModuleDir, dir);
+  const sourceDir = path.join(moduleDetails.dir, dir);
   const targetDir = path.join(tempDir, dir, externalModulesDirName, moduleDetails.prefix);
 
   const doesSourceDirExist = await fs.pathExists(sourceDir);

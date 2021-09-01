@@ -12,6 +12,7 @@ module.exports = class BrightscriptExternalDependencyItemCreator extends Brights
 
   /**
    * Creates new DependencyItem from found brightscript external dependency in brightscript file.
+   * moduleName is the official dependency's NPM module name without version, e.g. @kopytko/framework
    * @param {[_: String, _statement: String, externalPath: String, moduleName: String]} matchResult
    * @returns {DependencyItem}
    */

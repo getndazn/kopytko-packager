@@ -71,7 +71,7 @@ const mapDependency = (name, details, parentDir) => {
   const packageJson = FileHandler.readSync(path.join(npmPackageDir, 'package.json'));
   const packageInfo = JSON.parse(packageJson);
   if (!(packageInfo.keywords || []).includes(KOPYTKO_MODULE_KEYWORD)) {
-    return null;
+    return null; // it's not a Kopytko Module
   }
 
   const version = getSemVerObject(details.version);

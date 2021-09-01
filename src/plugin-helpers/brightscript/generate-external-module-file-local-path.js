@@ -11,5 +11,5 @@ module.exports = function generateExternalModuleFileLocalPath(internalPath, modu
   const mainDir = path.sep + pathParts.shift();
   const remainingPath = pathParts.join(path.sep);
 
-  return `${mainDir}${path.sep}${externalModulesDirName}${path.sep}${modulePrefix}${path.sep}${remainingPath}`;
+  return path.join(mainDir, externalModulesDirName, modulePrefix, remainingPath);
 }

@@ -9,8 +9,8 @@ const latinize = require('latinize');
  * @example
  * // returns '_1kopytko_'
  * getModulePrefix('1kopytko_!');
- * @param moduleName
- * @param [majorVersion]
+ * @param {String} moduleName
+ * @param {Number} [majorVersion]
  * @returns {String}
  */
 module.exports = function getModulePrefix(moduleName, majorVersion = null) {

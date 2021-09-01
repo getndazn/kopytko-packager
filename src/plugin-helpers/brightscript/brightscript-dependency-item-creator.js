@@ -26,6 +26,7 @@ module.exports = class BrightscriptDependencyItemCreator extends DependencyItemC
    * Creates an item creator for brightscript dependency items.
    * @param {String} rootDir
    * @param {String} contextModulePrefix
+   * @param {String} filePath
    */
   constructor(rootDir, contextModulePrefix, filePath) {
     super();

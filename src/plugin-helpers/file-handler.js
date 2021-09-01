@@ -20,16 +20,25 @@ module.exports = class FileHandler {
   /**
    * Returns a content of the file from the given path.
    * @param {String} filePath - path to the file
-   * @returns {String}
+   * @returns {Promise<String>}
    */
   static async read(filePath) {
     return fs.promises.readFile(filePath, this.FILE_ENCODING);
   }
 
   /**
+   * Returns a content of the file from the given path.
+   * @param {String} filePath - path to the file
+   * @returns {String}
+   */
+  static readSync(filePath) {
+    return fs.readFileSync(filePath, this.FILE_ENCODING);
+  }
+
+  /**
    * Returns lines of the file content from the given path.
    * @param {String} filePath - path to the file
-   * @returns {Array<String>}
+   * @returns {Promise<Array<String>>}
    */
   static async readLines(filePath) {
     const fileContent = await this.read(filePath);

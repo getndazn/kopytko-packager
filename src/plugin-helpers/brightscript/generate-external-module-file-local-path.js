@@ -1,10 +1,9 @@
 const path = require('path');
 
-const APP_MODULE_NAME = 'app';
-const DEPENDENCY_DIR_NAME = 'roku_modules';
+const { externalModulesDirName } = require('../../config');
 
-module.exports = function generateExternalModuleFileLocalPath(internalPath, sanitizedModuleName) {
-  if (!sanitizedModuleName || sanitizedModuleName === APP_MODULE_NAME) {
+module.exports = function generateExternalModuleFileLocalPath(internalPath, modulePrefix) {
+  if (!modulePrefix) {
     return internalPath;
   }
 
@@ -12,5 +11,5 @@ module.exports = function generateExternalModuleFileLocalPath(internalPath, sani
   const mainDir = path.sep + pathParts.shift();
   const remainingPath = pathParts.join(path.sep);
 
-  return `${mainDir}${path.sep}${DEPENDENCY_DIR_NAME}${path.sep}${sanitizedModuleName}${path.sep}${remainingPath}`;
+  return `${mainDir}${path.sep}${externalModulesDirName}${path.sep}${modulePrefix}${path.sep}${remainingPath}`;
 }

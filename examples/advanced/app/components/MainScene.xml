@@ -9,5 +9,6 @@
       vertOrigin="center"
       translation="[960, 540]"
     />
+    <ExampleComponent />
   </children>
 </component>

@@ -89,7 +89,7 @@ Available fields:
 - `archivePath [@type string @optional]` - path to the app archive to generate; default value as in the example file above
 - `baseManifest [@type string @required]` - base manifest file path. Having the file is sufficient to run the Roku app
 - `localManifestOverride [@type string @optional]` - path to the configuration file that overrides all other settings. Usually the file is on the git ignore list
-- `pluginDefinitions [@type [name: string]:object @optional` - plugin definitions (see [plugins](#plugins))
+- `pluginDefinitions [@type [name: string]:object @optional]` - plugin definitions (see [plugins](#plugins))
 - `plugins @optional` - global plugins list (see [plugins](#plugins))
 - `environments [@type [name: string]:object @optional]` - list of environments. The name should correspond to the `ENV` value. Each environment entry consists of:
   - `manifest [@type string @required]` - path to configuration file

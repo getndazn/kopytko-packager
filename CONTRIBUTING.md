@@ -16,7 +16,7 @@ Welcome, and thanks in advance for your help! Please follow these simple guideli
 
 **Note:** Please write a quick comment in the corresponding issue and ask if the feature is still relevant and that you want to jump into the implementation.
 
-Check out our [help wanted](https://github.com/getndazn/dazn-lambda-powertools/labels/help%20wanted) or [good first issue](https://github.com/getndazn/dazn-lambda-powertools/labels/good%20first%20issue) labels to find issues we want to move forward on with your help.
+Check out our [help wanted](https://github.com/getndazn/kopytko-packager/labels/help%20wanted) or [good first issue](https://github.com/getndazn/kopytko-packager/labels/good%20first%20issue) labels to find issues we want to move forward on with your help.
 
 We will do our best to respond/review/merge your PR according to priority. We hope that you stay engaged with us during this period to insure QA. Please note that the PR will be closed if there hasn't been any activity for a long time (~ 30 days) to keep us focused and keep the repo clean.
 

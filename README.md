@@ -170,15 +170,16 @@ sets app version based on your package.json.
 `kopytko-copy-external-dependencies` plugin lets you use external Kopytko Modules. A Kopytko Module is an NPM module
 with the `kopytko-module` keyword.
 The plugin creates a dependency list based on your package prod dependencies (and their prod dependencies, recursively)
-and direct dev dependencies (and their prod dependencies, recursively). If your project in overall has dependencies
+and direct dev dependencies (**without** their any dependencies). If your project in overall has dependencies
 on the same module but in different versions, the plugin will automatically use only the highest version of every
 major version dependency.
 Once a dependency list is generated, the plugin automatically copies their `/components` and `/source` directories
-(taking into account `kopytkoModuleDir` value configured in dependencies package.json file). So far the plugin *doesn't*
+(taking into account `kopytkoModuleDir` value configured in dependencies package.json file). So far the plugin **doesn't**
 copies neither images nor fonts directories.
 
 You can get the list of available public Kopytko Modules [here](https://www.npmjs.com/search?q=keywords%3Akopytko-module).
-If you want to share your Roku library with the community and create your own Kopytko Module, check the [Creating Kopytko Module](#creating-kopytko-module) paragraph.
+If you want to share your Roku library with the community and create your own Kopytko Module, check
+the [Creating Kopytko Module](#creating-kopytko-module) paragraph.
 
 The plugin creates
 
@@ -227,7 +228,7 @@ Example:
 ```brightscript
 ' @import /components/externalUtil.brs from @kopytko/utils
 ```
-will be changed into `pkg:/components/roku_modules/kopytko_utils_v1/externalUtils.brs` XML script entry.
+will be changed into `pkg:/components/kopytko_modules/kopytko_utils_v1/externalUtils.brs` XML script entry.
 
 Kopytko-packager imports nested external dependencies out-of-the-box.
 
@@ -236,3 +237,6 @@ Kopytko-packager imports nested external dependencies out-of-the-box.
 - if your `components` and `source` directories are not placed in the root directory, configure it in the
 `"kopytkoPackageDir"` field in package.json, e.g. `"kopytkoPackageDir": "app/"`
 - be aware so far Kopytko Module supports copying only the two mentioned above directories
+- if your module is designed to be used as a direct dev dependency (e.g. a module for debugging the non-production app),
+  and it uses some other Kopytko Modules, define them as `peerDependency` because Kopytko Packager doesn't install any dependencies
+  of direct dev dependencies. Thanks to this, it will notify the end user to install your peer dependencies as dev dependencies too.

@@ -11,7 +11,7 @@ const KOPYTKO_MODULE_DIR_KEY = 'kopytkoModuleDir';
 module.exports = function buildModuleTree() {
   const mainModuleInfo = getMainModuleInfo();
   const prodDependencies = getProdDependencies();
-  const devDependencies = getDevDependencies(prodDependencies);
+  const devDependencies = getDirectDevDependencies();
 
   return {
     [mainModuleInfo.name]: {
@@ -33,23 +33,10 @@ const getProdDependencies = () => {
   return mapDependencies(dependencies);
 }
 
-const getDevDependencies = (prodDependencies) => {
-  const devDependencies = {};
+const getDirectDevDependencies = () => {
+  const directDependencies = getNpmList({ prodOnly: false, depth: 0 }).dependencies;
 
-  const npmList = getNpmList({ prodOnly: false, depth: 0 })
-  const directDependencies = npmList.dependencies;
-  const directDevDependenciesName = Object.keys(directDependencies).filter(name => !prodDependencies[name]);
-
-  directDevDependenciesName.forEach(name => {
-    const cwd = getModuleDir(process.env.PWD, name);
-    const dependencyNpmList = getNpmList({ cwd });
-    const devDependency = mapDependency(name, dependencyNpmList);
-    if (devDependency) {
-      devDependencies[name] = devDependency;
-    }
-  })
-
-  return devDependencies;
+  return mapDependencies(directDependencies);
 }
 
 const mapDependencies = (dependenciesDetails, parentDir = null) => {

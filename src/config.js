@@ -1,6 +1,6 @@
 module.exports = {
   archivePath: '/dist/kopytko_archive.zip',
-  externalModulesDirName: 'roku_modules',
+  externalModulesDirName: 'kopytko_modules',
   kopytkorcFilename: '.kopytkorc',
   sourceDir: '/app',
   tempDir: '.kopytko_packager_temp',

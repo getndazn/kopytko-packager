@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/getndazn/kopytko-packager/compare/v1.2.0...v1.3.0) (2021-09-13)
+
+
+### Bug Fixes
+
+* Fixed wrong links ([#17](https://github.com/getndazn/kopytko-packager/issues/17)) ([b7af422](https://github.com/getndazn/kopytko-packager/commit/b7af42203f781c33f4a169cc82e4152c0ffe0c76))
+
+
+### Features
+
+* Dependencies copying mechanism ([#16](https://github.com/getndazn/kopytko-packager/issues/16)) ([e721a4b](https://github.com/getndazn/kopytko-packager/commit/e721a4b2a45f12643c10cf070519d9a116d1dee9))
+
 # [1.2.0](https://github.com/getndazn/kopytko-packager/compare/v1.1.0...v1.2.0) (2021-08-12)
 
 

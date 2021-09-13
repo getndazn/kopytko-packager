@@ -1,0 +1,4 @@
+{
+  "baseManifest": "manifest.js",
+  "plugins": ["kopytko-copy-external-dependencies", "kopytko-import-dependencies"]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "@kopytko/example-module",
+  "version": "1.0.0",
+  "description": "Basic example kopytko-packager based roku module",
+  "keywords": ["kopytko-module"],
+  "private": true,
+  "kopytkoModuleDir": "app/"
+}

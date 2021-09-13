@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/getndazn/kopytko-packager/compare/v1.3.0...v1.3.1) (2021-09-13)
+
+
+### Bug Fixes
+
+* Marked 'latinized' as prod dependency ([#19](https://github.com/getndazn/kopytko-packager/issues/19)) ([54f3447](https://github.com/getndazn/kopytko-packager/commit/54f3447097eba3415082a01910f5498cfb9399cd))
+
 # [1.3.0](https://github.com/getndazn/kopytko-packager/compare/v1.2.0...v1.3.0) (2021-09-13)
 
 

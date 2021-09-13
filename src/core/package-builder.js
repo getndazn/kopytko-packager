@@ -19,10 +19,10 @@ module.exports = class PackageBuilder {
     await fs.copy(this._sourceDir, this._tempDir);
   }
 
-  async applyPlugins(plugins, prePluginCallback) {
+  async applyPlugins(plugins, prePluginCallback = null) {
     try {
       for (const { name, plugin } of plugins) {
-        prePluginCallback(name);
+        prePluginCallback && prePluginCallback(name);
         await plugin(this._tempDir, this._env);
       }
     } catch (error) {

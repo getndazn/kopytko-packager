@@ -5,35 +5,24 @@
   "scripts": {
     "lint": "eslint ./"
   },
-  "keywords": [
-    "roku",
-    "brightscript"
-  ],
+  "keywords": ["roku", "brightscript", "kopytko"],
   "contributors": [
-    {
-      "name": "Paweł Hertman",
-      "email": "pawel@hertman.eu",
-      "url": "http://hertman.eu/"
-    },
-    {
-      "name": "Radosław Zambrowski",
-      "email": "radoslaw.zambrowski@dazn.com"
-    },
-    {
-      "name": "Tomasz Rejment",
-      "email": "tomasz.rejment@dazn.com"
-    },
-    {
-      "name": "Błażej Chełkowski",
-      "email": "blazej.chelkowski@dazn.com"
-    }
+    "Paweł Hertman <pawel@hertman.eu>",
+    "Tomasz Rejment <trejment@gmail.com>",
+    "Błażej Chełkowski <blazej.chelkowski@outlook.com>",
+    "Radosław Zambrowski <radekzam@gmail.com>"
   ],
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=7.0.0"
+  },
   "license": "UNLICENSED",
   "private": true,
   "files": [
     "scripts",
     "src",
-    "base-manifest.js"
+    "base-manifest.js",
+    "CHANGELOG.md"
   ],
   "dependencies": {
     "adm-zip": "^0.5.5",
@@ -44,7 +33,6 @@
     "ora": "^5.4.0",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
-    "ropm": "git://github.com/pawelhertman/ropm.git",
     "telnet-client": "^1.4.9",
     "terminal-kit": "^2.1.0"
   },
@@ -52,7 +40,8 @@
     "@babel/core": "^7.14.3",
     "@babel/eslint-parser": "^7.14.3",
     "@babel/preset-env": "^7.14.2",
-    "eslint": "^7.26.0"
+    "eslint": "^7.26.0",
+    "latinize": "^0.5.0"
   },
   "release": {
     "plugins": [

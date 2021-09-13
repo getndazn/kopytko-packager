@@ -5,32 +5,32 @@ const BrightscriptExternalImportFinder = require('./brightscript-external-import
 const BrightscriptInternalDependencyItemCreator = require('./brightscript-internal-dependency-item-creator');
 const BrightscriptInternalImportFinder = require('./brightscript-internal-import-finder');
 const DependencyCollection = require('../dependency/dependency-collection');
+const { externalModulesDirName } = require('../../config');
 
 const BRIGHTSCRIPT_COMMENT = '\'';
-const EXTERNAL_MODULES_CATALOG_NAME = 'roku_modules';
 
 module.exports = class BrightscriptDependencies {
   _fileLines;
   _importDependencyCollection;
-  _sanitizedModuleName = null;
   _rootDir;
 
   /**
    * Reads file lines and saves dependencies
    * @param {Array<String>} fileLines
    * @param {String} filePath
+   * @param {Modules} modules
    * @param {String} [rootDir]
    */
-  constructor(fileLines, filePath, rootDir = '') {
+  constructor(fileLines, filePath, modules, rootDir = '') {
     this._fileLines = fileLines;
     this._rootDir = rootDir;
     this._filePath = filePath;
-    this._sanitizedModuleName = this._getSanitizedModuleNameOfFile(filePath);
+    this._modulePrefix = this._getModulePrefixByFilePath(filePath);
 
-    const internalItemCreator = new BrightscriptInternalDependencyItemCreator(this._rootDir, this._sanitizedModuleName);
+    const internalItemCreator = new BrightscriptInternalDependencyItemCreator(this._rootDir, this._modulePrefix, filePath);
     this._importDependencyCollection = this.getDependencyCollection(new BrightscriptInternalImportFinder(internalItemCreator));
 
-    const externalItemCreator = new BrightscriptExternalDependencyItemCreator(this._rootDir);
+    const externalItemCreator = new BrightscriptExternalDependencyItemCreator(this._rootDir, this._modulePrefix, filePath, modules);
     const externalImportDependencyCollection = this.getDependencyCollection(new BrightscriptExternalImportFinder(externalItemCreator));
     externalImportDependencyCollection.getItems().forEach(dependency => this._importDependencyCollection.add(dependency));
   }
@@ -62,9 +62,9 @@ module.exports = class BrightscriptDependencies {
     return dependencyCollection;
   }
 
-  _getSanitizedModuleNameOfFile(filePath) {
+  _getModulePrefixByFilePath(filePath) {
     const pathParts = filePath.split(path.sep);
-    const externalModulesCatalogNameIndex = pathParts.indexOf(EXTERNAL_MODULES_CATALOG_NAME);
+    const externalModulesCatalogNameIndex = pathParts.indexOf(externalModulesDirName);
     if (externalModulesCatalogNameIndex < 0) {
       return null;
     }

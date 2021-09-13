@@ -6,11 +6,13 @@ const XmlDependencies = require('../../plugin-helpers/xml/xml-dependencies');
 const DependenciesFinder = require('./helpers/dependencies-finder');
 const DependenciesImporter = require('./helpers/dependencies-importer');
 const DependenciesMappingGenerator = require('./helpers/dependencies-mapping-generator');
+const buildModules = require('../../plugin-helpers/module/build-modules');
 
 const XML_FILE_PATH_PATTERN = '/components/**/*.xml';
 
 module.exports = async function importDependencies(dir) {
-  const dependenciesImporter = await createDependenciesImporter(dir);
+  const modules = buildModules();
+  const dependenciesImporter = await createDependenciesImporter(dir, modules);
 
   return updateXmlFiles(dir, dependenciesImporter);
 }
@@ -25,6 +27,7 @@ async function updateXmlFiles(dir, dependenciesImporter) {
 
 async function updateXmlFile(filePath, dir, dependenciesImporter) {
   const fileLines = await FileHandler.readLines(filePath);
+  // @todo update base dependencies paths in external XML files
   const xmlDependencies = new XmlDependencies(fileLines, filePath, dir);
   const dependencyPaths = xmlDependencies.getDependencyPaths();
   const dependencyPathsToAdd = dependenciesImporter.import(dependencyPaths);
@@ -36,8 +39,8 @@ async function updateXmlFile(filePath, dir, dependenciesImporter) {
   }
 }
 
-async function createDependenciesImporter(dir) {
-  const mapping = await new DependenciesMappingGenerator().generate(dir);
+async function createDependenciesImporter(dir, modules) {
+  const mapping = await new DependenciesMappingGenerator(modules).generate(dir);
   const finder = new DependenciesFinder(mapping);
 
   return new DependenciesImporter(finder, mapping);

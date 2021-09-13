@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<component name="MainScene" extends="Scene">
+  <children>
+    <SimpleLabel
+      id="label"
+      text="Kopytko Packager: Basic example"
+      horizOrigin="center"
+      vertOrigin="center"
+      translation="[960, 540]"
+    />
+    <ExampleComponent />
+  </children>
+</component>

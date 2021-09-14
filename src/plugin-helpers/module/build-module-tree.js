@@ -61,11 +61,12 @@ const mapDependency = (name, details, parentDir) => {
     return null; // it's not a Kopytko Module
   }
 
+  const dir = path.join(npmPackageDir, packageInfo[KOPYTKO_MODULE_DIR_KEY] || '');
   const version = getSemVerObject(details.version);
 
   return {
+    dir,
     version,
-    dir: path.join(npmPackageDir, packageInfo[KOPYTKO_MODULE_DIR_KEY] || ''),
     dependencies: details.dependencies ? mapDependencies(details.dependencies, dir) : {},
     prefix: getModulePrefix(name, version.major),
   }

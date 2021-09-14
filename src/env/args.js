@@ -39,6 +39,26 @@ const args = minimist(process.argv.slice(2), {
     rokuDevUser: process.env.ROKU_DEV_USER || 'rokudev',
 
     /**
+     * @type {string} Roku Developer id used for packaging production app.
+     *
+     * ROKU_DEV_ID=nkj3n4ij32n423i4jn23ij4ni23jn4
+     *
+     * ROKU_DEV_ID=nkj3n4ij32n423i4jn23ij4ni23jn4 npm start
+     * npm start -- --rokuDevId=nkj3n4ij32n423i4jn23ij4ni23jn4
+     */
+    rokuDevId: process.env.ROKU_DEV_ID || '',
+
+    /**
+     * @type {string} Roku  Developer signing password used for packaging production app.
+     *
+     * ROKU_DEV_SIGNING_PASSWORD=pass
+     *
+     * ROKU_DEV_SIGNING_PASSWORD=pass npm start
+     * npm start -- --rokuDevSigningPassword=pass
+     */
+    rokuDevSigningPassword: process.env.ROKU_DEV_SIGNING_PASSWORD || '',
+
+    /**
      * @type {string} Roku IP address.
      *
      * ROKU_IP=127.0.0.1

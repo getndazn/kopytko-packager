@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/getndazn/kopytko-packager/compare/v1.3.1...v1.3.2) (2021-09-14)
+
+
+### Bug Fixes
+
+* Fixed building module tree ([#22](https://github.com/getndazn/kopytko-packager/issues/22)) ([b1cefe0](https://github.com/getndazn/kopytko-packager/commit/b1cefe06139798f5c7f7d4efb73b702bb785b9f8))
+
 ## [1.3.1](https://github.com/getndazn/kopytko-packager/compare/v1.3.0...v1.3.1) (2021-09-13)
 
 

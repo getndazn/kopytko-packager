@@ -235,7 +235,7 @@ Kopytko-packager imports nested external dependencies out-of-the-box.
 ## Creating Kopytko Module
 - add `"kopytko-module"` to "keywords" field in your module's package.json file
 - if your `components` and `source` directories are not placed in the root directory, configure it in the
-`"kopytkoPackageDir"` field in package.json, e.g. `"kopytkoPackageDir": "app/"`
+`"kopytkoModuleDir"` field in package.json, e.g. `"kopytkoModuleDir": "app/"`
 - be aware so far Kopytko Module supports copying only the two mentioned above directories
 - if your module is designed to be used as a direct dev dependency (e.g. a module for debugging the non-production app),
   and it uses some other Kopytko Modules, define them as `peerDependency` because Kopytko Packager doesn't install any dependencies

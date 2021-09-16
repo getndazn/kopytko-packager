@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/getndazn/kopytko-packager/compare/v1.3.2...v1.4.0) (2021-09-16)
+
+
+### Features
+
+* add generate-package script ([#21](https://github.com/getndazn/kopytko-packager/issues/21)) ([999cfd8](https://github.com/getndazn/kopytko-packager/commit/999cfd8e8c22508974c8d393fced4a7e1403e7a0))
+
 ## [1.3.2](https://github.com/getndazn/kopytko-packager/compare/v1.3.1...v1.3.2) (2021-09-14)
 
 

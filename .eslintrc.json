@@ -11,6 +11,7 @@
   },
   "root": true,
   "rules": {
+    "object-curly-spacing": ["error", "always"],
     "no-unused-vars": ["error", { "args": "all", "argsIgnorePattern": "^_" }]
   }
 }

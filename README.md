@@ -65,6 +65,8 @@ The main configuration file `.kopytkorc` should be placed in the root folder of 
 ```json
 {
   "archivePath": "/dist/kopytko_archive.zip",
+  "generatedPackagePath": "/dist/kopytko_package.pkg",
+  "signedPackagePath": "/previous/signed.pkg",
   "baseManifest": "/manifest/base.js",
   "localManifestOverride": "/manifest/local.js",
   "pluginDefinitions": {},
@@ -87,6 +89,8 @@ The main configuration file `.kopytkorc` should be placed in the root folder of 
 ```
 Available fields:
 - `archivePath [@type string @optional]` - path to the app archive to generate; default value as in the example file above
+- `generatedPackagePath [@type string @optional]` - path to the app package to generate; default value as in the example file above
+- `signedPackagePath [@type string @optional]` - path to the package of the existing app, needed to rekey the device;
 - `baseManifest [@type string @required]` - base manifest file path. Having the file is sufficient to run the Roku app
 - `localManifestOverride [@type string @optional]` - path to the configuration file that overrides all other settings. Usually the file is on the git ignore list
 - `pluginDefinitions [@type [name: string]:object @optional]` - plugin definitions (see [plugins](#plugins))
@@ -97,12 +101,18 @@ Available fields:
 - `sourceDir [@type string @optional]` - directory of app's source code; default value as in the example file above
 - `tempDir [@type string @optional]` - directory of a temporary folder used during a building process as a project directory. After build, it is removed; default value as in the example file above
 
+archivePath and generatedPackagePath also could be defined as string templates to dynamically generate name of the created files.
+Example of generatedPackagePath: 'MyApp-v${manifest.major_version}.${manifest.minor_version}.${manifest.build_version}-${args.env}.pkg'.
+Resolves into: 'MyApp-v1.0.0-production.pkg'.
+Above example will take values from given manifest file and arguments passed to the build or generate-package script.
+
 The configuration files work in waterfall scheme meaning that `baseManifest` is loaded as the first file. Each environment entry overrides base configuration. The `localManifestOverride` is loaded as the last one overriding all others.
 
 ## Scripts
 The packager contains the following scripts:
 - `scripts/build.js` - builds the app
 - `scripts/start.js` - builds and deploys the app to the device
+- `scripts/generate-package.js` - rekey device if needed, builds, deploys the app to the device and finally signs and download the package
 - `scripts/prepare-for-vsc.js` - helpful when using debugging protocol in the VSC [extension](https://github.com/RokuCommunity/vscode-brightscript-language)
 
 Example usage:
@@ -117,6 +127,8 @@ Available parameters:
 - `env` - your environment value that matches entry in the [.kopytkorc](#.kopytkorc-file) file. Default value (if not passed) is "dev"
 - `rokuDevPassword` - dev password
 - `rokuDevUser` - dev user
+- `rokuDevId` - dev id, needed to rekey the device
+- `rokuDevSigningPassword` - dev signing password needed to rekey the device and sign packages
 - `rokuIP` - IP of your roku device
 - `telnet` - true/false, when true the packager will open the telnet session after deploying app to the device
 - `forceHttp` - true/false, when true all the urls in the manifest file that start with https will be overwritten to http

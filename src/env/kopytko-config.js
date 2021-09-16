@@ -1,7 +1,10 @@
+const lodash = require('lodash');
+
 const utils = require('../utils');
 const args = require('./args');
 const KopytkorcReader = require('./kopytkorc-reader');
 
+const STRING_TEMPLATE_VARIABLE_REGEX = /\${([\w.]+)}/g;
 const kopytkorc = new KopytkorcReader();
 
 function getManifestConfig() {
@@ -32,10 +35,20 @@ function sortPlugins(envPlugins, globalPlugins) {
   ];
 }
 
+function resolveStringTemplate(stringToResolve, stringTemplateResolveData) {
+  return stringToResolve
+    .replace(STRING_TEMPLATE_VARIABLE_REGEX, (_, key) => lodash.get(stringTemplateResolveData, key, ''));
+}
+
+const manifest = getManifestConfig();
+const stringTemplateResolveData = { args, manifest };
+
 module.exports = {
-  archivePath: kopytkorc.getArchivePath(args.env),
+  archivePath: resolveStringTemplate(kopytkorc.getArchivePath(args.env), stringTemplateResolveData),
+  generatedPackagePath: resolveStringTemplate(kopytkorc.getGeneratedPackagePath(args.env), stringTemplateResolveData),
+  signedPackagePath: kopytkorc.getSignedPackagePath(args.env),
   ignoredFiles: [], // Empty array for now. Eventually to add later.
-  manifest: getManifestConfig(),
+  manifest,
   pluginDefinitions: kopytkorc.getPluginDefinitions(),
   pluginNames: getPluginNames(),
   sourceDir: kopytkorc.getSourceDir(args.env),

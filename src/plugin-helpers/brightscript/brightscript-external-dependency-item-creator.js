@@ -19,9 +19,14 @@ module.exports = class BrightscriptExternalDependencyItemCreator extends Brights
   create([_, _statement, externalPath, moduleName]) {
     const contextModule = this.contextModulePrefix ? this._modules.getByPrefix(this.contextModulePrefix) : this._modules.main;
     const contextModuleDependencies = contextModule.dependencies;
-    const versionedModuleName = contextModuleDependencies.filter(prefix => prefix.includes(moduleName))[0];
+    let versionedModuleName = contextModuleDependencies.filter(prefix => prefix.includes(moduleName))[0];
     if (!versionedModuleName) {
-      throw new Error(`${this.filePath} file is trying to import unmet ${moduleName} dependency module`);
+      // allow importing main module's dependency version
+      versionedModuleName = this._modules.main.dependencies.filter(prefix => prefix.includes(moduleName))[0];
+
+      if (!versionedModuleName) {
+        throw new Error(`${this.filePath} file is trying to import unmet ${moduleName} dependency module`);
+      }
     }
 
     const targetModulePrefix = this._modules.all[versionedModuleName].prefix;

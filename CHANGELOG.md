@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/getndazn/kopytko-packager/compare/v1.4.0...v1.4.1) (2021-09-16)
+
+
+### Bug Fixes
+
+* Importing main module's dependency version if not provided by a depenendency ([#25](https://github.com/getndazn/kopytko-packager/issues/25)) ([fe268f7](https://github.com/getndazn/kopytko-packager/commit/fe268f7da69e1bc06198cbfef8afff9b9da80560))
+
 # [1.4.0](https://github.com/getndazn/kopytko-packager/compare/v1.3.2...v1.4.0) (2021-09-16)
 
 

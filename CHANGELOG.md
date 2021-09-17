@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/getndazn/kopytko-packager/compare/v1.4.1...v1.5.0) (2021-09-17)
+
+
+### Features
+
+* change signed package path entry point ([#27](https://github.com/getndazn/kopytko-packager/issues/27)) ([d56f3e1](https://github.com/getndazn/kopytko-packager/commit/d56f3e13ea58fbdfeaaccc59d896f7280d19bfa2))
+
 ## [1.4.1](https://github.com/getndazn/kopytko-packager/compare/v1.4.0...v1.4.1) (2021-09-16)
 
 

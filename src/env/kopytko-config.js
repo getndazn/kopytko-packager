@@ -46,7 +46,6 @@ const stringTemplateResolveData = { args, manifest };
 module.exports = {
   archivePath: resolveStringTemplate(kopytkorc.getArchivePath(args.env), stringTemplateResolveData),
   generatedPackagePath: resolveStringTemplate(kopytkorc.getGeneratedPackagePath(args.env), stringTemplateResolveData),
-  signedPackagePath: kopytkorc.getSignedPackagePath(args.env),
   ignoredFiles: [], // Empty array for now. Eventually to add later.
   manifest,
   pluginDefinitions: kopytkorc.getPluginDefinitions(),

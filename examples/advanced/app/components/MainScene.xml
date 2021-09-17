@@ -10,5 +10,6 @@
       translation="[960, 540]"
     />
     <ExampleComponent />
+    <ExampleModuleComponent />
   </children>
 </component>

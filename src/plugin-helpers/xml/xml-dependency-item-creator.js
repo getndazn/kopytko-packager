@@ -1,5 +1,7 @@
 const DependencyItem = require('../dependency/dependency-item');
 const DependencyItemCreator = require('../dependency/dependency-item-creator');
+const generateExternalModuleFileLocalPath = require('../module/generate-external-module-file-local-path');
+const getModulePrefixByFilePath = require('../module/get-module-prefix-by-file-path');
 
 const BRIGHTSCRIPT_LOCAL_DEPENDENCY_PREFIX = 'pkg:';
 const XML_FILE_NAME_REGEX = /[^/]+.xml/;
@@ -19,14 +21,18 @@ module.exports = class XmlDependencyItemCreator extends DependencyItemCreator {
 
   /**
    * Creates new DependencyItem from found brightscript dependency in xml file.
-   * @param {[matchString: String, prefix: ?String, path: String]} matchResult
+   * @param {[matchString: String, scriptUri: String]} matchResult
    * @returns {DependencyItem}
    */
-  create([_, prefix = '', path]) {
-    const dependencyPath = prefix ?
-      `${prefix}${path}` :
-      `${BRIGHTSCRIPT_LOCAL_DEPENDENCY_PREFIX}${this._filePath.replace(XML_FILE_NAME_REGEX, path)}`;
+  create([_, scriptUri]) {
+    const modulePrefix = getModulePrefixByFilePath(this._filePath);
+    const isAbsoluteUri = scriptUri.includes(BRIGHTSCRIPT_LOCAL_DEPENDENCY_PREFIX);
 
-    return new DependencyItem(dependencyPath);
+    const pathWithoutPrefix = (modulePrefix && isAbsoluteUri)
+      ? generateExternalModuleFileLocalPath(scriptUri, modulePrefix)
+      : this._filePath.replace(XML_FILE_NAME_REGEX, scriptUri);
+    const dependencyPath = `${BRIGHTSCRIPT_LOCAL_DEPENDENCY_PREFIX}${pathWithoutPrefix}`;
+
+    return new DependencyItem(dependencyPath, scriptUri);
   }
 }

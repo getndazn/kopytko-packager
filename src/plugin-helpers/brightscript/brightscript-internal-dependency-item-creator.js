@@ -1,6 +1,6 @@
 const DependencyItem = require('../dependency/dependency-item');
 const BrightscriptDependencyItemCreator = require('./brightscript-dependency-item-creator');
-const generateExternalModuleFileLocalPath = require('./generate-external-module-file-local-path');
+const generateExternalModuleFileLocalPath = require('../module/generate-external-module-file-local-path');
 
 module.exports = class BrightscriptInternalDependencyItemCreator extends BrightscriptDependencyItemCreator {
   /**

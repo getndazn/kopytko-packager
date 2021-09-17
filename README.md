@@ -7,6 +7,8 @@ The packager consists of the following features:
 - import internal and external brightscript dependencies
 - pack & zip the files
 - deploy a package to the Roku device
+- rekey the Roku device with given signed package
+- generate a package that is ready to upload to the Roku channel
 - prepare and build an app for the Visual Studio Code [extension](https://github.com/RokuCommunity/vscode-brightscript-language)
 
 ## Listing
@@ -90,7 +92,6 @@ The main configuration file `.kopytkorc` should be placed in the root folder of 
 Available fields:
 - `archivePath [@type string @optional]` - path to the app archive to generate; default value as in the example file above
 - `generatedPackagePath [@type string @optional]` - path to the app package to generate; default value as in the example file above
-- `signedPackagePath [@type string @optional]` - path to the package of the existing app, needed to rekey the device;
 - `baseManifest [@type string @required]` - base manifest file path. Having the file is sufficient to run the Roku app
 - `localManifestOverride [@type string @optional]` - path to the configuration file that overrides all other settings. Usually the file is on the git ignore list
 - `pluginDefinitions [@type [name: string]:object @optional]` - plugin definitions (see [plugins](#plugins))
@@ -130,6 +131,7 @@ Available parameters:
 - `rokuDevId` - dev id, needed to rekey the device
 - `rokuDevSigningPassword` - dev signing password needed to rekey the device and sign packages
 - `rokuIP` - IP of your roku device
+- `signedPackagePath` - path to the package of the existing app (signed package), needed to rekey the device
 - `telnet` - true/false, when true the packager will open the telnet session after deploying app to the device
 - `forceHttp` - true/false, when true all the urls in the manifest file that start with https will be overwritten to http
 
@@ -144,7 +146,34 @@ npm start -- --env=production
 To avoid the necessity of passing parameter with every script run, a .env file could be used.
 Documentation can be found [here](https://www.npmjs.com/package/dotenv).
 
-Available fields: `ENV`, `ROKU_DEV_PASSWORD`, `ROKU_DEV_USER`, `ROKU_IP`, `TELNET`, `FORCE_HTTP`
+Available fields: `ENV`, `ROKU_DEV_ID`, `ROKU_DEV_PASSWORD`, `ROKU_DEV_SIGNING_PASSWORD`, `ROKU_DEV_USER`, `ROKU_IP`, `SIGNED_PACKAGE_PATH`, `TELNET`, `FORCE_HTTP`
+
+### Generate package script
+
+By running this kopytko-packager will create a signed package.
+This script automates [Packaging Roku channels](https://developer.roku.com/en-gb/docs/developer-program/publishing/packaging-channels.md)
+
+It contains 4 steps:
+- [rekey device (if needed)](https://developer.roku.com/en-gb/docs/developer-program/publishing/packaging-channels.md#rekeying)
+- build an app for a given environment
+- deploy an app to the Roku device
+- [sign deployed app and download the generated package from the Roku device](https://developer.roku.com/en-gb/docs/developer-program/publishing/packaging-channels.md#step-4-packaging-the-sideloaded-channel)
+
+Package will be saved under generatedPackagePath if it was provided in `.kopytkorc` file,
+or in `/dist/kopytko_package.pkg` if generatedPackagePath was not provided.
+
+To be able to generate the package following script arguments are required (or env variables):
+- ROKU_DEV_ID
+- ROKU_DEV_PASSWORD
+- ROKU_DEV_SIGNING_PASSWORD
+- ROKU_DEV_USER
+- ROKU_IP
+- SIGNED_PACKAGE_PATH
+
+If you already have an app on your Roku channel, you will need to provide a previously signed package, to rekey the Roku device.
+If this is your first version of the app and you don't have ROKU_DEV_ID and ROKU_DEV_SIGNING_PASSWORD yet:
+1. [Open a telnet session](https://developer.roku.com/en-gb/docs/developer-program/publishing/packaging-channels.md#step-2-open-a-telnet-session)
+2. [Generate new signing keys](https://developer.roku.com/en-gb/docs/developer-program/publishing/packaging-channels.md#step-3-run-the-genkey-utility-to-create-a-signing-key).
 
 ## Plugins
 

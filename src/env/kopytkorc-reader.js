@@ -18,10 +18,6 @@ module.exports = class KopytkorcReader {
     return this._getConfigField(env, "archivePath");
   }
 
-  getSignedPackagePath(env) {
-    return this._getConfigField(env, "signedPackagePath");
-  }
-
   getGeneratedPackagePath(env) {
     return this._getConfigField(env, "generatedPackagePath");
   }

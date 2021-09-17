@@ -39,22 +39,24 @@ const args = minimist(process.argv.slice(2), {
     rokuDevUser: process.env.ROKU_DEV_USER || 'rokudev',
 
     /**
-     * @type {string} Roku Developer id used for packaging production app.
+     * @type {string} Roku Developer id.
+     * It is required for device rekey and for generating production package.
      *
      * ROKU_DEV_ID=nkj3n4ij32n423i4jn23ij4ni23jn4
      *
-     * ROKU_DEV_ID=nkj3n4ij32n423i4jn23ij4ni23jn4 npm start
-     * npm start -- --rokuDevId=nkj3n4ij32n423i4jn23ij4ni23jn4
+     * ROKU_DEV_ID=nkj3n4ij32n423i4jn23ij4ni23jn4 run generate-package
+     * npm run generate-package -- --rokuDevId=nkj3n4ij32n423i4jn23ij4ni23jn4
      */
     rokuDevId: process.env.ROKU_DEV_ID || '',
 
     /**
-     * @type {string} Roku  Developer signing password used for packaging production app.
+     * @type {string} Roku  Developer signing password.
+     * It is required for device rekey and for generating production package.
      *
      * ROKU_DEV_SIGNING_PASSWORD=pass
      *
-     * ROKU_DEV_SIGNING_PASSWORD=pass npm start
-     * npm start -- --rokuDevSigningPassword=pass
+     * ROKU_DEV_SIGNING_PASSWORD=pass npm run generate-package
+     * npm run generate-package -- --rokuDevSigningPassword=pass
      */
     rokuDevSigningPassword: process.env.ROKU_DEV_SIGNING_PASSWORD || '',
 
@@ -67,6 +69,18 @@ const args = minimist(process.argv.slice(2), {
      * npm start -- --rokuIp=127.0.0.1
      */
     rokuIP: process.env.ROKU_IP || '',
+
+    /**
+     * @type {string} Path for signed package.
+     * It is required for device rekey.
+     * It is a path relative to the root dir.
+     *
+     * SIGNED_PACKAGE_PATH=/packages/signed.pkg
+     *
+     * SIGNED_PACKAGE_PATH=/packages/signed.pkg npm run generate-package
+     * npm run generate-package -- --signedPackagePath=/packages/signed.pkg
+     */
+    signedPackagePath: process.env.SIGNED_PACKAGE_PATH || '',
 
     /**
      * @type {boolean} Enables telnet.

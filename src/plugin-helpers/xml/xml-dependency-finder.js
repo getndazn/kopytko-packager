@@ -1,6 +1,6 @@
 const DependencyFinder = require('../dependency/dependency-finder');
 
-const XML_SCRIPT_WITH_DEPENDENCY_REGEX = /<script.*uri="(pkg:)?([\w-/.]+\.brs)/;
+const XML_SCRIPT_WITH_DEPENDENCY_REGEX = /<script.*uri="((?:pkg:)?[\w-/.]+\.brs)"/;
 
 module.exports = class XmlDependencyFinder extends DependencyFinder {
   /**

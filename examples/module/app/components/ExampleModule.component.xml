@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
-<component name="ExampleModule" extends="Group">
-  <script type="text/brightscript" uri="ExampleModule.component.brs" />
+<component name="ExampleModuleComponent" extends="Group">
+  <script type="text/brightscript" uri="pkg:/components/ExampleModule.component.brs" />
+  <script type="text/brightscript" uri="anotherFunction.brs" />
 </component>

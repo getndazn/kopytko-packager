@@ -1,11 +1,9 @@
 const DependencyCollection = require('../dependency/dependency-collection');
 const XmlDependencyFinder = require('./xml-dependency-finder');
-const XmlDependencyInjector = require('./xml-dependency-injector');
 const XmlDependencyItemCreator = require('./xml-dependency-item-creator');
 
 module.exports = class XmlDependencies {
   _dependencyCollection;
-  _dependencyInjector;
 
   /**
    * Reads file lines and saves dependencies
@@ -15,27 +13,22 @@ module.exports = class XmlDependencies {
    */
   constructor(fileLines, filePath, rootDir = '') {
     this._dependencyCollection = this._createDependencyCollection(fileLines, filePath, rootDir);
-    this._dependencyInjector = new XmlDependencyInjector(fileLines);
+  }
+
+  /**
+   * Returns dependency items
+   * @returns {Array<DependencyItem>}
+   */
+  getItems() {
+    return this._dependencyCollection.getItems();
   }
 
   /**
    * Returns the paths of dependency files defined in the xml file in scripts tags.
    * @returns {Array<String>}
    */
-  getDependencyPaths() {
+  getPaths() {
     return this._dependencyCollection.getPaths();
-  }
-
-  /**
-   * Adds given dependency paths in script tags to the xml file and returns updated lines.
-   * @param {Array<String>} dependencyPaths
-   * @returns {Array<String>}
-   */
-  updateFileDependencies(dependencyPaths) {
-    const newDepdendencyCollection = new DependencyCollection(dependencyPaths);
-    const updatedFileLines = this._dependencyInjector.inject(newDepdendencyCollection);
-
-    return updatedFileLines;
   }
 
   _createDependencyCollection(fileLines, filePath, rootDir) {

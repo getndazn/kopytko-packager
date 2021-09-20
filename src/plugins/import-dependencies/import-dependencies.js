@@ -2,6 +2,7 @@ const glob = require('glob-promise');
 const path = require('path');
 
 const FileHandler = require('../../plugin-helpers/file-handler');
+const XmlScriptsUpdater = require('../../plugin-helpers/xml/xml-scripts-updater');
 const XmlDependencies = require('../../plugin-helpers/xml/xml-dependencies');
 const DependenciesFinder = require('./helpers/dependencies-finder');
 const DependenciesImporter = require('./helpers/dependencies-importer');
@@ -27,16 +28,13 @@ async function updateXmlFiles(dir, dependenciesImporter) {
 
 async function updateXmlFile(filePath, dir, dependenciesImporter) {
   const fileLines = await FileHandler.readLines(filePath);
-  // @todo update base dependencies paths in external XML files
+
   const xmlDependencies = new XmlDependencies(fileLines, filePath, dir);
-  const dependencyPaths = xmlDependencies.getDependencyPaths();
+  const dependencyPaths = xmlDependencies.getPaths();
   const dependencyPathsToAdd = dependenciesImporter.import(dependencyPaths);
 
-  if (dependencyPathsToAdd.length > 0) {
-    const updatedFileLines = xmlDependencies.updateFileDependencies(dependencyPathsToAdd);
-
-    await FileHandler.writeLines(filePath, updatedFileLines);
-  }
+  const updater = new XmlScriptsUpdater(fileLines, filePath, xmlDependencies);
+  await updater.update(dependencyPathsToAdd);
 }
 
 async function createDependenciesImporter(dir, modules) {

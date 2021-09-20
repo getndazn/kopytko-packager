@@ -1,10 +1,14 @@
-
-const DependencyInjector = require('../dependency/dependency-injector');
-
 const XML_ADDED_DEPENDENCIES_SECTION_HEADER = '  <!-- auto-imported sub-dependencies -->';
 const XML_COMPONENT_CLOSING_TAG = '</component>';
 
-module.exports = class XmlDependencyInjector extends DependencyInjector {
+/**
+ * DependencyInjector provides functionality to inject new file dependencies.
+ */
+module.exports = class XmlDependencyInjector {
+  constructor(fileLines) {
+    this._fileLines = fileLines;
+  }
+
   /**
    * Returns updated file lines with SceneGraph script dependencies.
    * @param {DependencyCollection} dependencyCollection

@@ -1,11 +1,9 @@
-const path = require('path');
-
 const BrightscriptExternalDependencyItemCreator = require('./brightscript-external-dependency-item-creator');
 const BrightscriptExternalImportFinder = require('./brightscript-external-import-finder');
 const BrightscriptInternalDependencyItemCreator = require('./brightscript-internal-dependency-item-creator');
 const BrightscriptInternalImportFinder = require('./brightscript-internal-import-finder');
 const DependencyCollection = require('../dependency/dependency-collection');
-const { externalModulesDirName } = require('../../config');
+const getModulePrefixByFilePath = require('../module/get-module-prefix-by-file-path');
 
 const BRIGHTSCRIPT_COMMENT = '\'';
 
@@ -25,7 +23,7 @@ module.exports = class BrightscriptDependencies {
     this._fileLines = fileLines;
     this._rootDir = rootDir;
     this._filePath = filePath;
-    this._modulePrefix = this._getModulePrefixByFilePath(filePath);
+    this._modulePrefix = getModulePrefixByFilePath(filePath);
 
     const internalItemCreator = new BrightscriptInternalDependencyItemCreator(this._rootDir, this._modulePrefix, filePath);
     this._importDependencyCollection = this.getDependencyCollection(new BrightscriptInternalImportFinder(internalItemCreator));
@@ -60,16 +58,6 @@ module.exports = class BrightscriptDependencies {
     });
 
     return dependencyCollection;
-  }
-
-  _getModulePrefixByFilePath(filePath) {
-    const pathParts = filePath.split(path.sep);
-    const externalModulesCatalogNameIndex = pathParts.indexOf(externalModulesDirName);
-    if (externalModulesCatalogNameIndex < 0) {
-      return null;
-    }
-
-    return pathParts[externalModulesCatalogNameIndex + 1];
   }
 
   _forEachCommentLine(lineProcessor) {

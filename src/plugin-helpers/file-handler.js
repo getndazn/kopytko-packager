@@ -53,8 +53,8 @@ module.exports = class FileHandler {
    * @param {String} content
    * @returns {Promise<void>}
    */
-  static async write(filePath, content) {
-    return await fs.promises.writeFile(filePath, content, this.FILE_ENCODING);
+  static write(filePath, content) {
+    return fs.promises.writeFile(filePath, content, this.FILE_ENCODING);
   }
 
   /**
@@ -64,9 +64,9 @@ module.exports = class FileHandler {
    * @param {Array<String>} lines
    * @returns {Promise<void>}
    */
-  static async writeLines(filePath, lines) {
+  static writeLines(filePath, lines) {
     const newContent = lines.join(this.NEW_LINE_CHAR)
 
-    return await this.write(filePath, newContent);
+    return this.write(filePath, newContent);
   }
 }

@@ -18,7 +18,7 @@ jobs:
         id: release
         uses: cycjimmy/semantic-release-action@v2
         env:
-          GITHUB_TOKEN: ${{ secrets.GLOBAL_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
         with:
           extra_plugins: |
             @semantic-release/changelog@5.0.1
@@ -29,12 +29,12 @@ jobs:
         with:
           source_ref: master
           target_branch: develop
-          github_token: ${{ secrets.GLOBAL_GITHUB_TOKEN }}
+          github_token: ${{ github.token }}
       - name: Teams notification
         uses: toko-bifrost/ms-teams-deploy-card@3.1.2
         if: always()
         with:
-          github-token: ${{ secrets.GLOBAL_GITHUB_TOKEN }}
+          github-token: ${{ github.token }}
           webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URI }}
           show-on-start: false
           card-layout-exit: complete

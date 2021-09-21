@@ -1,6 +1,6 @@
 {
   "name": "@kopytko/packager",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Modern Roku apps packager",
   "scripts": {
     "lint": "eslint ./"
@@ -20,8 +20,7 @@
     "node": ">=14.0.0",
     "npm": ">=7.0.0"
   },
-  "license": "UNLICENSED",
-  "private": true,
+  "license": "MIT",
   "files": [
     "scripts",
     "src",

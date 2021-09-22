@@ -1,6 +1,6 @@
 {
   "name": "@kopytko/packager",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Modern Roku apps packager",
   "scripts": {
     "lint": "eslint ./"
@@ -27,6 +27,9 @@
     "base-manifest.js",
     "CHANGELOG.md"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "adm-zip": "^0.5.5",
     "dotenv": "^9.0.2",

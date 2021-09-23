@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/getndazn/kopytko-packager/compare/v1.0.0...v1.0.1) (2021-09-23)
+
+
+### Bug Fixes
+
+* Added repository url to package.json ([#42](https://github.com/getndazn/kopytko-packager/issues/42)) ([be28296](https://github.com/getndazn/kopytko-packager/commit/be282962a30f59f7166728d6509c5cbe887bed67))
+
 # 1.0.0 (2021-09-23)
 
 

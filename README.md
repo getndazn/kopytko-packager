@@ -27,7 +27,7 @@ The packager consists of the following features:
 ## Quick start
 1. Install the Packager
 ```
-npm install @kopytko/packager --save-dev
+npm install @dazn/kopytko-packager --save-dev
 ```
 2. Create `.kopytkorc` in the root folder with minimal configuration
 ```json
@@ -40,7 +40,7 @@ npm install @kopytko/packager --save-dev
 
 3. Create a base manifest file
 ```js
-const baseManifest = require('@kopytko/packager/base-manifest.js');
+const baseManifest = require('@dazn/kopytko-packager/base-manifest.js');
 
 module.exports = {
   ...baseManifest,
@@ -54,7 +54,7 @@ module.exports = {
 4. Configure start script in your package.json
 ```json
 "scripts": {
-  "start": "node node_modules/@kopytko/packager/scripts/start.js"
+  "start": "node node_modules/@dazn/kopytko-packager/scripts/start.js"
 }
 ```
 5. Start the app
@@ -119,8 +119,8 @@ The packager contains the following scripts:
 Example usage:
 ```json
 "scripts": {
-  "build-prod": "node node_modules/@kopytko/packager/scripts/build.js --env=production",
-  "start": "node node_modules/@kopytko/packager/scripts/start.js"
+  "build-prod": "node node_modules/@dazn/kopytko-packager/scripts/build.js --env=production",
+  "start": "node node_modules/@dazn/kopytko-packager/scripts/start.js"
 }
 ```
 
@@ -203,7 +203,7 @@ title=Some Title
 bs_const=debug=true
 ```
 
-You can override `@kopytko/packager/base-manifest.js` which contains all required by Roku fields and dynamically
+You can override `@dazn/kopytko-packager/base-manifest.js` which contains all required by Roku fields and dynamically
 sets app version based on your package.json.
 
 ### Copying external Kopytko Modules

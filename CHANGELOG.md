@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/getndazn/kopytko-packager/compare/v1.0.1...v1.0.2) (2021-09-24)
+
+
+### Bug Fixes
+
+* README updated ([#43](https://github.com/getndazn/kopytko-packager/issues/43)) ([bde5939](https://github.com/getndazn/kopytko-packager/commit/bde59394f88e178d7440a219bda8b3ad8ad41ab6))
+
 ## [1.0.1](https://github.com/getndazn/kopytko-packager/compare/v1.0.0...v1.0.1) (2021-09-23)
 
 

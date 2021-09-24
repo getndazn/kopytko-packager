@@ -3,25 +3,27 @@ A package builder for the Roku platform.
 
 The packager consists of the following features:
 - generate environment-specific manifest
-- copy files of external modules installed via NPM
+- copy files of external modules ("Kopytko Modules") installed via NPM
 - import internal and external brightscript dependencies
 - pack & zip the files
 - deploy a package to the Roku device
 - rekey the Roku device with given signed package
-- generate a package that is ready to upload to the Roku channel
+- generate a package ready to upload to the Roku channel
 - prepare and build an app for the Visual Studio Code [extension](https://github.com/RokuCommunity/vscode-brightscript-language)
 
 ## Listing
 - [Prerequisites](#prerequisites)
 - [Quick start](#quick-start)
 - [Configuration](#configuration)
-- [Manifest file](#manifest-file)
 - [Scripts](#scripts)
 - [Plugins](#plugins)
-- [Dependencies importing mechanism](#dependencies-importing-mechanism)
+  - [Generating manifest file](#generating-manifest-file)
+  - [Copying external Kopytko Modules](#copying-external-kopytko-modules)
+  - [Dependencies importing mechanism](#dependencies-importing-mechanism)
+- [Creating Kopytko Module](#creating-kopytko-module)
 
 ## Prerequisites
-- node version 14
+- node version 16+
 - npm version 7
 
 ## Quick start

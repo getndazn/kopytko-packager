@@ -28,6 +28,10 @@ module.exports = class XmlDependencyItemCreator extends DependencyItemCreator {
     const modulePrefix = getModulePrefixByFilePath(this._filePath);
     const isAbsoluteUri = scriptUri.includes(BRIGHTSCRIPT_LOCAL_DEPENDENCY_PREFIX);
 
+    if (!modulePrefix && isAbsoluteUri) {
+      return new DependencyItem(scriptUri, scriptUri);
+    }
+
     const pathWithoutPrefix = (modulePrefix && isAbsoluteUri)
       ? generateExternalModuleFileLocalPath(scriptUri, modulePrefix)
       : this._filePath.replace(XML_FILE_NAME_REGEX, scriptUri);

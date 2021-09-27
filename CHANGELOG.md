@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/getndazn/kopytko-packager/compare/v1.0.2...v1.0.3) (2021-09-27)
+
+
+### Bug Fixes
+
+* Fixed generating XML dependency items ([#44](https://github.com/getndazn/kopytko-packager/issues/44)) ([3ebd5ea](https://github.com/getndazn/kopytko-packager/commit/3ebd5eafc74e554a739f183e3c24a5378f7dfe4a))
+
 ## [1.0.2](https://github.com/getndazn/kopytko-packager/compare/v1.0.1...v1.0.2) (2021-09-24)
 
 

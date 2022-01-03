@@ -5,6 +5,7 @@
   "scripts": {
     "lint": "eslint ./"
   },
+  "main": "index.js",
   "keywords": [
     "roku",
     "brightscript",
@@ -14,7 +15,8 @@
     "Paweł Hertman <pawel@hertman.eu>",
     "Tomasz Rejment <trejment@gmail.com>",
     "Błażej Chełkowski <blazej.chelkowski@outlook.com>",
-    "Radosław Zambrowski <radekzam@gmail.com>"
+    "Radosław Zambrowski <radekzam@gmail.com>",
+    "Tomasz Bazelczuk <tbazelczuk@gmail.com>"
   ],
   "engines": {
     "node": ">=14.0.0",
@@ -32,6 +34,7 @@
     "scripts",
     "src",
     "base-manifest.js",
+    "index.js",
     "CHANGELOG.md"
   ],
   "publishConfig": {

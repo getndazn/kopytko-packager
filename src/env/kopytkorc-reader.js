@@ -1,9 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
+const { resolveStringTemplate } = require('./interpolate-string-helper');
 const config = require('../config');
 const KopytkoError = require('../errors/kopytko-error');
 const utils = require('../utils');
+const args = require('./args');
 
 module.exports = class KopytkorcReader {
   _DEFAULT_ENV = 'dev';
@@ -20,6 +22,10 @@ module.exports = class KopytkorcReader {
 
   getGeneratedPackagePath(env) {
     return this._getConfigField(env, "generatedPackagePath");
+  }
+
+  getLocalManifestPath(env) {
+    return this._getConfigField(env, "localManifestOverride");
   }
 
   getSourceDir(env) {
@@ -87,9 +93,9 @@ module.exports = class KopytkorcReader {
   }
 
   _getLocalManifestConfig() {
-    const defaultManifestFilePath = this._kopytkorc.localManifestOverride;
-
     try {
+      const defaultManifestFilePath = resolveStringTemplate(this._kopytkorc.localManifestOverride, { args });
+
       return this._getManifestConfig(defaultManifestFilePath);
     } catch {
       return {}; // local manifest override is non-obligatory so we don't want to throw an exception when it doesn't exist

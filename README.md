@@ -72,7 +72,7 @@ The main configuration file `.kopytkorc` should be placed in the root folder of 
   "generatedPackagePath": "/dist/kopytko_package.pkg",
   "signedPackagePath": "/previous/signed.pkg",
   "baseManifest": "/manifest/base.js",
-  "localManifestOverride": "/manifest/local.js",
+  "localManifestOverride": "/manifest/local.${args.env}.js",
   "pluginDefinitions": {},
   "plugins": [],
   "sourceDir": "/app",

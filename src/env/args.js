@@ -3,7 +3,6 @@ const minimist = require('minimist');
 
 const firstArgument = process.argv[2] || '';
 const anonymousArgument = !firstArgument.includes('--') ? firstArgument : '';
-const env = process.env.ENV !== 'test' ? anonymousArgument : '';
 const testFileName = process.env.ENV === 'test' ? anonymousArgument : '';
 
 const args = minimist(process.argv.slice(2), {
@@ -16,7 +15,7 @@ const args = minimist(process.argv.slice(2), {
      * ENV=production npm start
      * npm start -- --env=production
      */
-    env: env || process.env.ENV || 'dev',
+    env: process.env.ENV || 'dev',
 
     /**
      * @type {string} Roku Developer password.
@@ -66,7 +65,7 @@ const args = minimist(process.argv.slice(2), {
      * ROKU_IP=127.0.0.1
      *
      * ROKU_IP=127.0.0.1 npm start
-     * npm start -- --rokuIp=127.0.0.1
+     * npm start -- --rokuIP=127.0.0.1
      */
     rokuIP: process.env.ROKU_IP || '',
 

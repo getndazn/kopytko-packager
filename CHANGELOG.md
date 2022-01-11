@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/getndazn/kopytko-packager/compare/v1.0.4...v1.1.0) (2022-01-11)
+
+
+### Features
+
+* interpolate localManifestOverride ([#49](https://github.com/getndazn/kopytko-packager/issues/49)) ([1e5de08](https://github.com/getndazn/kopytko-packager/commit/1e5de089990ea52568ccf776083417071afcd194))
+
 ## [1.0.4](https://github.com/getndazn/kopytko-packager/compare/v1.0.3...v1.0.4) (2022-01-11)
 
 

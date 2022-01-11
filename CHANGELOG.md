@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/getndazn/kopytko-packager/compare/v1.0.3...v1.0.4) (2022-01-11)
+
+
+### Bug Fixes
+
+* fixed env first argument ([4fdb346](https://github.com/getndazn/kopytko-packager/commit/4fdb346f9ff0420c6e65499f45f4cc9d95b13146))
+
 ## [1.0.3](https://github.com/getndazn/kopytko-packager/compare/v1.0.2...v1.0.3) (2021-09-27)
 
 

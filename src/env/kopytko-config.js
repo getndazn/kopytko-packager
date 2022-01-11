@@ -1,10 +1,8 @@
-const lodash = require('lodash');
-
 const utils = require('../utils');
 const args = require('./args');
 const KopytkorcReader = require('./kopytkorc-reader');
+const { resolveStringTemplate } = require('./interpolate-string-helper');
 
-const STRING_TEMPLATE_VARIABLE_REGEX = /\${([\w.]+)}/g;
 const kopytkorc = new KopytkorcReader();
 
 function getManifestConfig() {
@@ -33,11 +31,6 @@ function sortPlugins(envPlugins, globalPlugins) {
     ...postEnvPlugins, // global plugins
     ...postGlobalPlugins, // env plugins with postGlobalPlugin: true
   ];
-}
-
-function resolveStringTemplate(stringToResolve, stringTemplateResolveData) {
-  return stringToResolve
-    .replace(STRING_TEMPLATE_VARIABLE_REGEX, (_, key) => lodash.get(stringTemplateResolveData, key, ''));
 }
 
 const manifest = getManifestConfig();

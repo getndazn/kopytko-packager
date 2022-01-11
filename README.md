@@ -42,7 +42,7 @@ npm install @dazn/kopytko-packager --save-dev
 
 3. Create a base manifest file
 ```js
-const baseManifest = require('@dazn/kopytko-packager/base-manifest.js');
+const baseManifest = require('@dazn/kopytko-packager');
 
 module.exports = {
   ...baseManifest,

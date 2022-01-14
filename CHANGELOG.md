@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/getndazn/kopytko-packager/compare/v1.1.0...v1.1.1) (2022-01-14)
+
+
+### Bug Fixes
+
+* use os tmp dir for build script ([#50](https://github.com/getndazn/kopytko-packager/issues/50)) ([797404f](https://github.com/getndazn/kopytko-packager/commit/797404fbb720eac9d6a8c47f56b6a546acf6d90f))
+
 # [1.1.0](https://github.com/getndazn/kopytko-packager/compare/v1.0.4...v1.1.0) (2022-01-11)
 
 

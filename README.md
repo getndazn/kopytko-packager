@@ -76,7 +76,6 @@ The main configuration file `.kopytkorc` should be placed in the root folder of 
   "pluginDefinitions": {},
   "plugins": [],
   "sourceDir": "/app",
-  "tempDir": ".kopytkorc",
   "environments": {
     "production": {
       "manifest": "/env/production.js",
@@ -102,7 +101,7 @@ Available fields:
   - `manifest [@type string @required]` - path to configuration file
   - `plugins` environment's plugins list (see [plugins](#plugins))
 - `sourceDir [@type string @optional]` - directory of app's source code; default value as in the example file above
-- `tempDir [@type string @optional]` - directory of a temporary folder used during a building process as a project directory. After build, it is removed; default value as in the example file above
+- `tempDir [@type string @optional]` - directory of a temporary folder used during a building process as a project directory. After build, it is removed; default value is operating system directory for temporary files
 
 archivePath and generatedPackagePath also could be defined as string templates to dynamically generate name of the created files.
 Example of generatedPackagePath: 'MyApp-v${manifest.major_version}.${manifest.minor_version}.${manifest.build_version}-${args.env}.pkg'.

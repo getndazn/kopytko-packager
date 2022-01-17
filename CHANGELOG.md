@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/getndazn/kopytko-packager/compare/v1.1.1...v1.1.2) (2022-01-17)
+
+
+### Bug Fixes
+
+* absolute path of temporary directory ([#52](https://github.com/getndazn/kopytko-packager/issues/52)) ([f3e2593](https://github.com/getndazn/kopytko-packager/commit/f3e25934d5fdf0e0eb75d6fb6895ae904d3b8aac))
+
 ## [1.1.1](https://github.com/getndazn/kopytko-packager/compare/v1.1.0...v1.1.1) (2022-01-14)
 
 

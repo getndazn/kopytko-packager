@@ -8,5 +8,5 @@ module.exports = {
   env: args.env,
   rootDir: process.env.PWD,
   sourceDir: path.join(process.env.PWD, kopytkoConfig.sourceDir),
-  tempDir: path.join(process.env.PWD, kopytkoConfig.tempDir),
+  tempDir: kopytkoConfig.tempDir,
 }

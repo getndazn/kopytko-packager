@@ -6,7 +6,7 @@ let tempDir;
 
 try {
   tempDir = path.join(os.tmpdir(), kopytoTempDir);
-} catch (_)  {
+} catch (_) {
   tempDir = kopytoTempDir;
 }
 

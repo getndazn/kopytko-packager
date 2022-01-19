@@ -1,9 +1,7 @@
 require('dotenv').config();
-const minimist = require('minimist');
 
-const firstArgument = process.argv[2] || '';
-const anonymousArgument = !firstArgument.includes('--') ? firstArgument : '';
-const testFileName = process.env.ENV === 'test' ? anonymousArgument : '';
+const minimist = require('minimist');
+const { parse } = require('path');
 
 const args = minimist(process.argv.slice(2), {
   boolean: true,
@@ -99,7 +97,7 @@ const args = minimist(process.argv.slice(2), {
      * TEST_FILE_NAME=AppView npm test
      * npm test -- --testFileName=AppView
      */
-    testFileName: testFileName || process.env.TEST_FILE_NAME || '',
+    testFileName: process.env.TEST_FILE_NAME || '',
 
     /**
      * @type {boolean} Disable secured connections.
@@ -112,5 +110,17 @@ const args = minimist(process.argv.slice(2), {
     forceHttp: process.env.FORCE_HTTP === 'true',
   },
 });
+
+const { name: scriptName } = parse(process.argv[1]);
+
+/**
+* support below shortcuts
+* npm test -- testFileName
+* node node_modules/@dazn/kopytko-unit-testing-framework/scripts/test.js testFileName
+* node someScript.js test testFileName
+*/
+if (args.env === 'test' && ((scriptName === 'test' && args._.length) || args._.length > 1)) {
+  args.testFileName = args._.slice(-1)[0];
+}
 
 module.exports = args;

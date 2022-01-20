@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/getndazn/kopytko-packager/compare/v1.1.2...v1.1.3) (2022-01-20)
+
+
+### Bug Fixes
+
+* support testFileName shortcuts ([#53](https://github.com/getndazn/kopytko-packager/issues/53)) ([2d96dd7](https://github.com/getndazn/kopytko-packager/commit/2d96dd7eefa0b86e02c32304fb3eb3243fc8a7bf))
+
 ## [1.1.2](https://github.com/getndazn/kopytko-packager/compare/v1.1.1...v1.1.2) (2022-01-17)
 
 

@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/getndazn/kopytko-packager/compare/v1.1.3...v1.1.4) (2022-01-21)
+
+
+### Bug Fixes
+
+* Remove testFilename argument ([#54](https://github.com/getndazn/kopytko-packager/issues/54)) ([fd74da1](https://github.com/getndazn/kopytko-packager/commit/fd74da1eb5659b44fcb293754d0141089259293d))
+
 ## [1.1.3](https://github.com/getndazn/kopytko-packager/compare/v1.1.2...v1.1.3) (2022-01-20)
 
 

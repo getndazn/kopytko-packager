@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 const minimist = require('minimist');
-const { parse } = require('path');
 
 const args = minimist(process.argv.slice(2), {
   boolean: true,
@@ -90,16 +89,6 @@ const args = minimist(process.argv.slice(2), {
     telnet: process.env.TELNET === 'true',
 
     /**
-     * @type {string} Unit test file/suite name.
-     *
-     * TEST_FILE_NAME=AppView
-     *
-     * TEST_FILE_NAME=AppView npm test
-     * npm test -- --testFileName=AppView
-     */
-    testFileName: process.env.TEST_FILE_NAME || '',
-
-    /**
      * @type {boolean} Disable secured connections.
      *
      * FORCE_HTTP=true|false
@@ -110,17 +99,5 @@ const args = minimist(process.argv.slice(2), {
     forceHttp: process.env.FORCE_HTTP === 'true',
   },
 });
-
-const { name: scriptName } = parse(process.argv[1]);
-
-/**
-* support below shortcuts
-* npm test -- testFileName
-* node node_modules/@dazn/kopytko-unit-testing-framework/scripts/test.js testFileName
-* node someScript.js test testFileName
-*/
-if (args.env === 'test' && ((scriptName === 'test' && args._.length) || args._.length > 1)) {
-  args.testFileName = args._.slice(-1)[0];
-}
 
 module.exports = args;

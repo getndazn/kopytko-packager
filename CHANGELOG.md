@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/getndazn/kopytko-packager/compare/v1.1.4...v1.2.0) (2022-01-26)
+
+
+### Features
+
+* add a screenshot script ([#56](https://github.com/getndazn/kopytko-packager/issues/56)) ([54c7244](https://github.com/getndazn/kopytko-packager/commit/54c7244ece16e4608d2bb6ab009f037184d64ad5))
+
 ## [1.1.4](https://github.com/getndazn/kopytko-packager/compare/v1.1.3...v1.1.4) (2022-01-21)
 
 

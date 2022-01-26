@@ -10,6 +10,7 @@ The packager consists of the following features:
 - rekey the Roku device with given signed package
 - generate a package ready to upload to the Roku channel
 - prepare and build an app for the Visual Studio Code [extension](https://github.com/RokuCommunity/vscode-brightscript-language)
+- take a screenshot of the dev app
 
 ## Listing
 - [Prerequisites](#prerequisites)
@@ -73,6 +74,7 @@ The main configuration file `.kopytkorc` should be placed in the root folder of 
   "signedPackagePath": "/previous/signed.pkg",
   "baseManifest": "/manifest/base.js",
   "localManifestOverride": "/manifest/local.${args.env}.js",
+  "screenshotDir": "/dist",
   "pluginDefinitions": {},
   "plugins": [],
   "sourceDir": "/app",
@@ -95,6 +97,7 @@ Available fields:
 - `generatedPackagePath [@type string @optional]` - path to the app package to generate; default value as in the example file above
 - `baseManifest [@type string @required]` - base manifest file path. Having the file is sufficient to run the Roku app
 - `localManifestOverride [@type string @optional]` - path to the configuration file that overrides all other settings. Usually the file is on the git ignore list
+- `screenshotDir [@type string @optional]` - the directory where screenshots will be saved; default value as in the example file above
 - `pluginDefinitions [@type [name: string]:object @optional]` - plugin definitions (see [plugins](#plugins))
 - `plugins @optional` - global plugins list (see [plugins](#plugins))
 - `environments [@type [name: string]:object @optional]` - list of environments. The name should correspond to the `ENV` value. Each environment entry consists of:
@@ -116,6 +119,7 @@ The packager contains the following scripts:
 - `scripts/start.js` - builds and deploys the app to the device
 - `scripts/generate-package.js` - rekey device if needed, builds, deploys the app to the device and finally signs and download the package
 - `scripts/prepare-for-vsc.js` - helpful when using debugging protocol in the VSC [extension](https://github.com/RokuCommunity/vscode-brightscript-language)
+- `scripts/screenshot.js` - takes a screenshot of the current dev application (works only with dev channel), screenshot file name - `Screenshot_<Date as ISOString>.jpg`
 
 Example usage:
 ```json
@@ -126,7 +130,7 @@ Example usage:
 ```
 
 Available parameters:
-- `env` - your environment value that matches entry in the [.kopytkorc](#.kopytkorc-file) file. Default value (if not passed) is "dev"
+- `env` - your environment value that matches entry in the [.kopytkorc](#configuration) file. Default value (if not passed) is "dev"
 - `rokuDevPassword` - dev password
 - `rokuDevUser` - dev user
 - `rokuDevId` - dev id, needed to rekey the device

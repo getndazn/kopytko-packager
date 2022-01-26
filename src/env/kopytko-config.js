@@ -43,6 +43,7 @@ module.exports = {
   manifest,
   pluginDefinitions: kopytkorc.getPluginDefinitions(),
   pluginNames: getPluginNames(),
+  screenshotDir: kopytkorc.getScreenshotDir(),
   sourceDir: kopytkorc.getSourceDir(args.env),
   tempDir: kopytkorc.getTempDir(args.env),
 };

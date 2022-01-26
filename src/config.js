@@ -15,6 +15,7 @@ module.exports = {
   generatedPackagePath: '/dist/kopytko_package.pkg',
   externalModulesDirName: 'kopytko_modules',
   kopytkorcFilename: '.kopytkorc',
+  screenshotDir: '/dist',
   sourceDir: '/app',
   tempDir,
 };

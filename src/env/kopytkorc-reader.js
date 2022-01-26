@@ -28,6 +28,10 @@ module.exports = class KopytkorcReader {
     return this._getConfigField(env, "localManifestOverride");
   }
 
+  getScreenshotDir() {
+    return this._getConfigField(this._DEFAULT_ENV, "screenshotDir");
+  }
+
   getSourceDir(env) {
     return this._getConfigField(env, "sourceDir");
   }

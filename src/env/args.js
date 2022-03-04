@@ -2,7 +2,27 @@ require('dotenv').config();
 
 const minimist = require('minimist');
 
-const args = minimist(process.argv.slice(2), {
+// runner parameter is calculated based on script execution context
+// kopytko start --env=production
+// '.../bin/node',
+// '.../bin/kopytko',
+// 'start',
+// '--env=production'
+
+// npm start -- --env=production
+// '.../bin/node',
+// '.../@dazn/kopytko-packager/scripts/start.js',
+// '--env=production'
+const runner = process.argv[1].split('/').slice(-1)[0];
+
+// we have to slice additional args if we execute script via kopytko cli
+const args = runner === 'kopytko' ? process.argv.slice(3) : process.argv.slice(2);
+
+const firstArgument = args[0] || '';
+const anonymousArgument = !firstArgument.includes('--') ? firstArgument : '';
+const env = process.env.ENV !== 'test' ? anonymousArgument : '';
+
+const parsedArgs = minimist(args, {
   boolean: true,
   default: {
     /**
@@ -11,8 +31,12 @@ const args = minimist(process.argv.slice(2), {
      *
      * ENV=production npm start
      * npm start -- --env=production
+     * npm start -- production
+     * ENV=production kopytko start
+     * kopytko start --env=production
+     * kopytko start production
      */
-    env: process.env.ENV || 'dev',
+    env: env || process.env.ENV || 'dev',
 
     /**
      * @type {string} Roku Developer password.
@@ -100,4 +124,4 @@ const args = minimist(process.argv.slice(2), {
   },
 });
 
-module.exports = args;
+module.exports = parsedArgs;

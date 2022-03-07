@@ -64,6 +64,20 @@ module.exports = {
 ```
 npm start
 ```
+## Kopytko cli package
+It is recommended to use [kopytko-cli](https://github.com/getndazn/kopytko-cli) package and add it to package.json scripts:
+
+```
+npm install @dazn/kopytko-packager --save-dev
+```
+
+```json
+"scripts": {
+  "start": "kopytko start",
+  "build": "kopytko build",
+  "test": "kopytko test"
+}
+```
 
 ## Configuration
 The main configuration file `.kopytkorc` should be placed in the root folder of the project. The example file looks like this:

@@ -1,6 +1,6 @@
 {
   "name": "@dazn/kopytko-packager",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Modern Roku apps packager",
   "scripts": {
     "lint": "eslint ./"

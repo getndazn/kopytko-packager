@@ -146,6 +146,6 @@ module.exports = class KopytkorcReader {
   }
 
   _getAbsolutePath(projectPath) {
-    return path.join(process.env.PWD, projectPath);
+    return path.join(process.cwd(), projectPath);
   }
 }

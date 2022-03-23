@@ -16,3 +16,25 @@ jobs:
         run: npm ci
       - name: Run linter
         run: npm run lint
+
+  build:
+    runs-on: ${{ matrix.os }}
+    needs: validate-code
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+        node: [16]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Dependencies
+        run:  |
+          npm ci
+          npm ci --prefix=examples/basic
+          npm ci --prefix=examples/advanced
+      - name: Run build basic
+        run: npm run build --prefix=examples/basic
+      - name: Run build advanced
+        run: npm run build --prefix=examples/advanced
+
+

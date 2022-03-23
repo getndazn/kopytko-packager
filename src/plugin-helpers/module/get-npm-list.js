@@ -1,7 +1,7 @@
 const childProcess = require('child_process');
 
 module.exports = function getNpmList({
-  cwd = process.env.PWD,
+  cwd = process.cwd(),
   depth = null,
   prodOnly = true,
 } = {}) {

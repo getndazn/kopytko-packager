@@ -1,4 +1,5 @@
-const packageJson = require(process.env.PWD + '/package.json');
+const path = require('path')
+const packageJson = require(path.join(process.cwd(), 'package.json'));
 const versionParts = packageJson.version.split('.');
 
 module.exports = {

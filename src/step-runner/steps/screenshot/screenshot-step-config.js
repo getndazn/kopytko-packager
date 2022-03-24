@@ -7,5 +7,5 @@ module.exports = {
   rokuIP: args.rokuIP,
   rokuDevPassword: args.rokuDevPassword,
   rokuDevUser: args.rokuDevUser,
-  screenshotDir: path.join(process.env.PWD, kopytkoConfig.screenshotDir),
+  screenshotDir: path.join(process.cwd(), kopytkoConfig.screenshotDir),
 }

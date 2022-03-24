@@ -25,7 +25,7 @@ The packager consists of the following features:
 
 ## Prerequisites
 - node version 16+
-- npm version 7
+- npm version 8+
 
 ## Quick start
 1. Install the Packager

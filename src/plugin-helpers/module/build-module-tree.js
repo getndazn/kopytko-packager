@@ -80,7 +80,7 @@ const findDir = (name, parentDir) => {
     }
   }
 
-  return getModuleDir(process.env.PWD, name);
+  return getModuleDir(process.cwd(), name);
 }
 
 const getModuleDir = (parentDir, name) => path.join(parentDir, 'node_modules/', name);

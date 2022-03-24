@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/getndazn/kopytko-packager/compare/v1.2.1...v1.2.2) (2022-03-24)
+
+
+### Bug Fixes
+
+* windows pwd path ([#60](https://github.com/getndazn/kopytko-packager/issues/60)) ([4c48d4d](https://github.com/getndazn/kopytko-packager/commit/4c48d4d1ce8593f2e2c56081ded590082bdadcf5))
+
 ## [1.2.1](https://github.com/getndazn/kopytko-packager/compare/v1.2.0...v1.2.1) (2022-03-07)
 
 

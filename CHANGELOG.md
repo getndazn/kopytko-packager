@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/getndazn/kopytko-packager/compare/v1.2.2...v1.2.3) (2022-03-24)
+
+
+### Bug Fixes
+
+* windows args ([#61](https://github.com/getndazn/kopytko-packager/issues/61)) ([ee80a02](https://github.com/getndazn/kopytko-packager/commit/ee80a028b6a799164570be598edc46fecea6e1bd))
+
 ## [1.2.2](https://github.com/getndazn/kopytko-packager/compare/v1.2.1...v1.2.2) (2022-03-24)
 
 

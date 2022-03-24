@@ -1,4 +1,12 @@
 {
-  "baseManifest": "manifest.js",
-  "plugins": ["kopytko-copy-external-dependencies", "kopytko-import-dependencies"]
+  "baseManifest": "/manifest/default.js",
+  "plugins": ["kopytko-copy-external-dependencies", "kopytko-import-dependencies"],
+  "environments": {
+    "test": {
+      "manifest": "/manifest/test.js"
+    },
+    "dev": {
+      "manifest": "/manifest/dev.js"
+    }
+  }
 }

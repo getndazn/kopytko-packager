@@ -2,21 +2,23 @@ require('dotenv').config();
 
 const minimist = require('minimist');
 
-// runner parameter is calculated based on script execution context
-// kopytko start --env=production
+// runner parameter depends on script execution context
+// example of kopytko script
+// kopytko build --env=production
+// '.../bin/node', or '...\\bin\\node.exe',
+// '.../bin/kopytko', or '...\\bin\\kopytko.js',
+// 'build',
+// '--env=production'
+//
+// example of start npm build script
+// npm build -- --env=production
 // '.../bin/node',
-// '.../bin/kopytko',
-// 'start',
+// '.../@dazn/kopytko-packager/scripts/build.js',
 // '--env=production'
 
-// npm start -- --env=production
-// '.../bin/node',
-// '.../@dazn/kopytko-packager/scripts/start.js',
-// '--env=production'
-const runner = process.argv[1].split('/').slice(-1)[0];
-
-// we have to slice additional args if we execute script via kopytko cli
-const args = runner === 'kopytko' ? process.argv.slice(3) : process.argv.slice(2);
+const runner = process.argv[1]
+// slice additional args if script is executed via kopytko command
+const args = /kopytko(\.js)?$/.test(runner) ? process.argv.slice(3) : process.argv.slice(2);
 
 const firstArgument = args[0] || '';
 const anonymousArgument = !firstArgument.includes('--') ? firstArgument : '';

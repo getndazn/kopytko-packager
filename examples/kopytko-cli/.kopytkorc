@@ -1,0 +1,8 @@
+{
+  "baseManifest": "/manifest/default.js",
+  "environments": {
+    "test": {
+      "manifest": "/manifest/test.js"
+    }
+  }
+}

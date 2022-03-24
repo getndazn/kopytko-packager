@@ -32,9 +32,12 @@ jobs:
           npm ci
           npm ci --prefix=examples/basic
           npm ci --prefix=examples/advanced
+          npm ci --prefix=examples/kopytko-cli
       - name: Run build basic
         run: npm run build --prefix=examples/basic
       - name: Run build advanced
-        run: npm run build --prefix=examples/advanced
+        run: npm run build --prefix=examples/advanced -- test
+      - name: Run build kopytko-cli
+        run: npm run build --prefix=examples/kopytko-cli -- test
 
 

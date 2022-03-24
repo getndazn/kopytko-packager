@@ -1,0 +1,13 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "Example kopytko-cli",
+  "scripts": {
+    "build": "kopytko build"
+  },
+  "private": true,
+  "devDependencies": {
+    "@dazn/kopytko-cli": "^1.0.1",
+    "@dazn/kopytko-packager": "file:../.."
+  }
+}

@@ -11,6 +11,7 @@
     "@dazn/kopytko-packager": "file:../.."
   },
   "dependencies": {
+    "@dazn/kopytko-unit-testing-framework": "^1.0.4",
     "@kopytko/example-module": "file:../module"
   }
 }

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <component name="ExampleComponent" extends="Group">
+  <SimpleLabel
+      id="label"
+      text="Kopytko Packager: Advanced example"
+      horizOrigin="center"
+      vertOrigin="center"
+      translation="[960, 540]"
+    />
   <script type="text/brightscript" uri="Example.component.brs" />
 </component>

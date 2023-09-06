@@ -41,7 +41,7 @@ module.exports = class AppDeployer {
       return messages.join(' ');
     } catch (error) {
       if (error.statusCode === 401) {
-        throw new KopytkoError('Bad Roku Developer credentials. Check ROKU_DEV_PASSWORD and ROKU_USER in .env file');
+        throw new KopytkoError('Bad Roku Developer credentials. Check ROKU_DEV_PASSWORD and ROKU_DEV_USER in .env file');
       }
 
       if (error.statusCode === 577) {

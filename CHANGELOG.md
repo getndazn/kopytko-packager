@@ -1,3 +1,11 @@
+## [1.2.4](https://github.com/getndazn/kopytko-packager/compare/v1.2.3...v1.2.4) (2023-09-07)
+
+
+### Bug Fixes
+
+* rokuDevPassword being treated as number ([#67](https://github.com/getndazn/kopytko-packager/issues/67)) ([b8f8ede](https://github.com/getndazn/kopytko-packager/commit/b8f8edee657a3027f61f102d3081d0bb096820f2))
+* upgrade github action dependencies ([#68](https://github.com/getndazn/kopytko-packager/issues/68)) ([9ae8da3](https://github.com/getndazn/kopytko-packager/commit/9ae8da3533090b9708c24646ff5a0cbc33afa071))
+
 ## [1.2.3](https://github.com/getndazn/kopytko-packager/compare/v1.2.2...v1.2.3) (2022-03-24)
 
 

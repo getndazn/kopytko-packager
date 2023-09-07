@@ -124,6 +124,7 @@ const parsedArgs = minimist(args, {
      */
     forceHttp: process.env.FORCE_HTTP === 'true',
   },
+  string: [ 'rokuDevPassword' ],
 });
 
 module.exports = parsedArgs;

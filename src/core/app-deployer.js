@@ -36,7 +36,9 @@ module.exports = class AppDeployer {
         ...this._config,
       });
       const messages = Array.from(response.body.matchAll(this._MESSAGE_REGEX), match => match[1]);
-      if (!messages.includes(this._MESSAGE_INSTALL_SUCCESS)) throw new KopytkoError(`Unknown error: ${messages.join(' ')}`);
+      if (!response.body.includes(this._MESSAGE_INSTALL_SUCCESS) && !messages.includes(this._MESSAGE_INSTALL_SUCCESS)) {
+        throw new KopytkoError(`Unknown error: ${messages.join(' ')}`);
+      }
 
       return messages.join(' ');
     } catch (error) {

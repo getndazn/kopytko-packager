@@ -1,3 +1,10 @@
+## [1.2.5](https://github.com/getndazn/kopytko-packager/compare/v1.2.4...v1.2.5) (2023-11-02)
+
+
+### Bug Fixes
+
+* error during app upload on RokuOS >= 12.5.0 ([#69](https://github.com/getndazn/kopytko-packager/issues/69)) ([663269d](https://github.com/getndazn/kopytko-packager/commit/663269d3d7c9b3814950acfd52ea427933d8d27f))
+
 ## [1.2.4](https://github.com/getndazn/kopytko-packager/compare/v1.2.3...v1.2.4) (2023-09-07)
 
 

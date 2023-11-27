@@ -7,5 +7,4 @@ module.exports = {
   archivePath: path.join(process.cwd(), kopytkoConfig.archivePath),
   rokuIP: args.rokuIP,
   rokuDevPassword: args.rokuDevPassword,
-  rokuDevUser: args.rokuDevUser,
 }

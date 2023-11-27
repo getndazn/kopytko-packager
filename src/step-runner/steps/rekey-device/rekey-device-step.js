@@ -11,16 +11,14 @@ module.exports = class RekeyDeviceStep extends Step {
    * @param  {String} config.rokuDevId
    * @param  {String} config.rokuDevPassword
    * @param  {String} config.rokuDevSigningPassword
-   * @param  {String} config.rokuDevUser
    * @param  {String} config.rokuIP
    * @param  {String} config.signedPackagePath
    */
-  async run({ signedPackagePath, rokuIP, rokuDevUser, rokuDevPassword, rokuDevId, rokuDevSigningPassword }) {
+  async run({ signedPackagePath, rokuIP, rokuDevPassword, rokuDevId, rokuDevSigningPassword }) {
     const deviceRekeyManager = new DeviceRekeyManager({
       rokuDevId,
       rokuDevPassword,
       rokuDevSigningPassword,
-      rokuDevUser,
       rokuIP,
     });
 

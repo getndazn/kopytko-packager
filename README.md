@@ -146,7 +146,6 @@ Example usage:
 Available parameters:
 - `env` - your environment value that matches entry in the [.kopytkorc](#configuration) file. Default value (if not passed) is "dev"
 - `rokuDevPassword` - dev password
-- `rokuDevUser` - dev user
 - `rokuDevId` - dev id, needed to rekey the device
 - `rokuDevSigningPassword` - dev signing password needed to rekey the device and sign packages
 - `rokuIP` - IP of your roku device

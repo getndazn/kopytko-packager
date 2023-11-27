@@ -7,6 +7,5 @@ module.exports = {
   generatedPackagePath: path.join(process.cwd(), kopytkoConfig.generatedPackagePath),
   rokuIP: args.rokuIP,
   rokuDevPassword: args.rokuDevPassword,
-  rokuDevUser: args.rokuDevUser,
   rokuDevSigningPassword: args.rokuDevSigningPassword,
 }

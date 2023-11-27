@@ -49,11 +49,9 @@
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
     "ora": "^5.4.0",
-    "request": "^2.88.2",
-    "request-promise": "^4.2.6",
+    "roku-dev": "^1.2.2",
     "telnet-client": "^1.4.9",
-    "terminal-kit": "^2.1.0",
-    "xml2js": "^0.4.23"
+    "terminal-kit": "^2.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",

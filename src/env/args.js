@@ -51,16 +51,6 @@ const parsedArgs = minimist(args, {
     rokuDevPassword: process.env.ROKU_DEV_PASSWORD || '',
 
     /**
-     * @type {string} Roku Developer username.
-     *
-     * ROKU_DEV_USER=rokudev
-     *
-     * ROKU_DEV_USER=rokudev npm start
-     * npm start -- --rokuDevUser=rokudev
-     */
-    rokuDevUser: process.env.ROKU_DEV_USER || 'rokudev',
-
-    /**
      * @type {string} Roku Developer id.
      * It is required for device rekey and for generating production package.
      *

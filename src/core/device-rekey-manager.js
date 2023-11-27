@@ -1,20 +1,14 @@
-const fs = require('fs');
-const request = require('request-promise');
-const xml2js = require('xml2js');
+const { deviceInfo, rekeyDevice } = require('roku-dev');
 
 const KopytkoError = require('../errors/kopytko-error');
 
 module.exports = class DeviceRekeyManager {
-  _MESSAGE_REKEY_SUCCESS = 'Success.';
-  _MESSAGE_REGEX = /<font color="red">([^<]+)<\/font>/;
-
   _config = {};
 
   /**
    * @param  {Object} config
    * @param  {String} config.rokuIP
    * @param  {String} config.rokuDevPassword
-   * @param  {String} config.rokuDevUser
    * @param  {String} config.rokuDevSigningPassword
    * @param  {String} config.rokuDevId
    */
@@ -23,7 +17,7 @@ module.exports = class DeviceRekeyManager {
   }
 
   async checkKey() {
-    let devId = await this._getDevId();
+    const devId = await this._getDevId();
 
     return (devId === this._config.rokuDevId);
   }
@@ -37,20 +31,12 @@ module.exports = class DeviceRekeyManager {
       throw new KopytkoError('Missing rokuDevSigningPassword');
     }
 
-    const response = await this._sendRekeyRequest({
-      archive: fs.createReadStream(rekeySignedArchivePath),
-      ...this._config,
+    await rekeyDevice({
+      rokuDevSigningPassword: this._config.rokuDevSigningPassword,
+      rokuDevPassword: this._config.rokuDevPassword,
+      rokuIP: this._config.rokuIP,
+      signedPackagePath: rekeySignedArchivePath,
     });
-
-    let resultTextSearch = this._MESSAGE_REGEX.exec(response.body);
-
-    if (!resultTextSearch) {
-      throw new KopytkoError('Unknown Rekey Failure');
-    }
-
-    if (resultTextSearch[1] !== this._MESSAGE_REKEY_SUCCESS) {
-      throw new KopytkoError(`Rekey Failure: ${resultTextSearch[1]}`);
-    }
 
     if (this._config.rokuDevId) {
       const isDevIdCorrect = await this.checkKey();
@@ -62,47 +48,8 @@ module.exports = class DeviceRekeyManager {
   }
 
   async _getDevId() {
-    const deviceInfo = await this._sendDeviceInfoRequest({ ...this._config });
+    const response = await deviceInfo({ rokuIP: this._config.rokuIP });
 
-    return deviceInfo['keyed-developer-id'];
-  }
-
-  _sendRekeyRequest({ archive, rokuDevPassword, rokuDevSigningPassword, rokuDevUser, rokuIP }) {
-    return request({
-      method: 'POST',
-      uri: `http://${rokuIP}/plugin_inspect`,
-      formData: {
-        mysubmit: 'Rekey',
-        passwd: rokuDevSigningPassword,
-        archive,
-      },
-      auth: {
-        user: rokuDevUser,
-        pass: rokuDevPassword,
-        sendImmediately: false,
-      },
-      resolveWithFullResponse: true,
-    }).catch(error => {
-      if (error.statusCode === 401) {
-        throw new KopytkoError('Bad Roku Developer credentials.');
-      }
-
-      throw new KopytkoError(`Unknown error. HTTP status code: ${error.statusCode}`, error);
-    });
-  }
-
-  _sendDeviceInfoRequest({ rokuIP }) {
-    return request({
-      method: 'GET',
-      uri: `http://${rokuIP}:8060/query/device-info`,
-    }).then(async response => {
-      const jsResponse = await xml2js.parseStringPromise(response, {
-        explicitArray: false
-      });
-
-      return jsResponse['device-info'];
-    }).catch(error => {
-      throw new KopytkoError(`Unknown error. HTTP status code: ${error.statusCode}`, error);
-    });
+    return response['keyed-developer-id'];
   }
 }

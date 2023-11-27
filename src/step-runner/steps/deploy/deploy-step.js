@@ -1,4 +1,4 @@
-const AppDeployer = require('../../../core/app-deployer');
+const { uploadApp } = require('roku-dev');
 const Step = require('../step');
 
 module.exports = class DeployStep extends Step {
@@ -11,17 +11,13 @@ module.exports = class DeployStep extends Step {
    * @param  {String} config.archivePath
    * @param  {String} config.rokuIP
    * @param  {String} config.rokuDevPassword
-   * @param  {String} config.rokuDevUser
    * @return {String} Message in case of successful upload
    */
-  async run({ archivePath, rokuIP, rokuDevUser, rokuDevPassword }) {
-    const deployer = new AppDeployer({ rokuIP, rokuDevUser, rokuDevPassword });
-
-    this.logger.subStep('Uninstalling existing app');
-    await deployer.uninstallCurrentApp();
-
-    this.logger.subStep('Uploading and installing app');
-
-    return deployer.installApp(archivePath);
+  async run({ archivePath, rokuIP, rokuDevPassword }) {
+    return uploadApp({
+      appArchivePath: archivePath,
+      rokuDevPassword,
+      rokuIP,
+    });
   }
 }

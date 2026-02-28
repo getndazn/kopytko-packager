@@ -5,7 +5,7 @@ const kopytkoConfig = require('../../env/kopytko-config');
 const utils = require('../../utils');
 
 module.exports = function generateManifest(rootDir) {
-  const manifestBrsPath = path.join(rootDir, 'components/Manifest.const.brs');
+  const manifestBrsPath = path.join(rootDir, 'source/Manifest.const.brs');
   const manifestPath = path.join(rootDir, 'manifest');
   let manifestBrsContent = formatToBrsFile(kopytkoConfig.manifest);
   let manifestContent = formatToStringArray(kopytkoConfig.manifest).join('\n');

@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/getndazn/kopytko-packager/compare/v1.3.1...v1.4.0) (2026-03-24)
+
+
+### Features
+
+* support for new node, usage of native fetch ([#74](https://github.com/getndazn/kopytko-packager/issues/74)) ([64e42f9](https://github.com/getndazn/kopytko-packager/commit/64e42f9fa365b603ba681e0ba9d91156d8cc6cb0))
+
 ## [1.2.5](https://github.com/getndazn/kopytko-packager/compare/v1.2.4...v1.2.5) (2023-11-02)
 
 

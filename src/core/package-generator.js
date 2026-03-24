@@ -1,6 +1,8 @@
 const fs = require('fs-extra');
 const path = require('path');
-const request = require('request-promise');
+const { Readable } = require('stream');
+const { pipeline } = require('stream/promises');
+const { postFormWithDigestAuth, fetchWithDigestAuth } = require('./digest-auth');
 
 const KopytkoError = require('../errors/kopytko-error');
 
@@ -43,45 +45,35 @@ module.exports = class PackageGenerator {
   }
 
   async download(generatedPackagePath, downloadedPackagePath) {
-    await fs.ensureDir(path.dirname(generatedPackagePath));
+    await fs.ensureDir(path.dirname(downloadedPackagePath));
 
-    return new Promise(resolve => {
-      const file = fs.createWriteStream(downloadedPackagePath);
-
-      file.on('finish', resolve);
-
-      this._downloadSignedPackageRequest({ generatedPackagePath, ...this._config })
-        .pipe(file);
-    });
+    const response = await this._downloadSignedPackageRequest({ generatedPackagePath, ...this._config });
+    const nodeStream = Readable.fromWeb(response.body);
+    const file = fs.createWriteStream(downloadedPackagePath);
+    await pipeline(nodeStream, file);
   }
 
-  _sendSignPackageRequest({ appName, rokuDevSigningPassword, rokuDevPassword, rokuDevUser, rokuIP }) {
-    return request({
-      method: 'POST',
-      uri: `http://${rokuIP}/plugin_package`,
-      formData: {
-        mysubmit: 'Package',
-        pkg_time: (new Date()).getTime().toString(),
-        passwd: rokuDevSigningPassword,
-        app_name: appName,
-      },
-      auth: {
-        user: rokuDevUser,
-        pass: rokuDevPassword,
-        sendImmediately: false,
-      },
-    });
+  async _sendSignPackageRequest({ appName, rokuDevSigningPassword, rokuDevPassword, rokuDevUser, rokuIP }) {
+    const fields = [
+      { name: 'mysubmit', value: 'Package' },
+      { name: 'pkg_time', value: (new Date()).getTime().toString() },
+      { name: 'passwd', value: rokuDevSigningPassword },
+      { name: 'app_name', value: appName },
+    ];
+
+    return postFormWithDigestAuth(
+      `http://${rokuIP}/plugin_package`,
+      fields,
+      { user: rokuDevUser, pass: rokuDevPassword },
+    );
   }
 
   _downloadSignedPackageRequest({ generatedPackagePath, rokuDevPassword, rokuDevUser, rokuIP }) {
-    return request({
-      method: 'GET',
-      uri: `http://${rokuIP}/${generatedPackagePath}`,
-      auth: {
-        user: rokuDevUser,
-        pass: rokuDevPassword,
-        sendImmediately: false,
-      },
-    });
+    return fetchWithDigestAuth(
+      `http://${rokuIP}/${generatedPackagePath}`,
+      { method: 'GET' },
+      { user: rokuDevUser, pass: rokuDevPassword },
+      { stream: true },
+    );
   }
 }

@@ -1,4 +1,4 @@
-const glob = require('glob-promise');
+const { glob } = require('glob');
 const path = require('path');
 
 const FileHandler = require('../../plugin-helpers/file-handler');

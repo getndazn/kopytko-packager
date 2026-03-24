@@ -1,5 +1,5 @@
 const fs = require('fs');
-const request = require('request-promise');
+const { postFormWithDigestAuth } = require('./digest-auth');
 
 const KopytkoError = require('../errors/kopytko-error');
 
@@ -22,7 +22,7 @@ module.exports = class AppDeployer {
 
   async uninstallCurrentApp() {
     try {
-      await this._sendRequest({ archive: '', action: 'Delete', ...this._config });
+      await this._sendRequest({ archivePath: '', action: 'Delete', ...this._config });
     } catch {
       return; // don't process response and fail silently (fails if there is no app installed)
     }
@@ -31,7 +31,7 @@ module.exports = class AppDeployer {
   async installApp(archivePath) {
     try {
       const response = await this._sendRequest({
-        archive: fs.createReadStream(archivePath),
+        archivePath,
         action: 'Replace',
         ...this._config,
       });
@@ -58,20 +58,27 @@ module.exports = class AppDeployer {
     }
   }
 
-  _sendRequest({ rokuIP, rokuDevPassword, rokuDevUser, archive, action }) {
-    return request({
-      method: 'POST',
-      uri: `http://${rokuIP}/plugin_install`,
-      formData: {
-        mysubmit: action,
-        archive,
-      },
-      auth: {
-        user: rokuDevUser,
-        pass: rokuDevPassword,
-        sendImmediately: false,
-      },
-      resolveWithFullResponse: true,
-    });
+  _sendRequest({ rokuIP, rokuDevPassword, rokuDevUser, archivePath, action }) {
+    const fields = [
+      { name: 'mysubmit', value: action },
+    ];
+
+    if (archivePath) {
+      fields.push({
+        name: 'archive',
+        value: fs.readFileSync(archivePath),
+        filename: 'archive.zip',
+        contentType: 'application/octet-stream',
+      });
+    } else {
+      fields.push({ name: 'archive', value: '' });
+    }
+
+    return postFormWithDigestAuth(
+      `http://${rokuIP}/plugin_install`,
+      fields,
+      { user: rokuDevUser, pass: rokuDevPassword },
+      { resolveWithFullResponse: true },
+    );
   }
 }

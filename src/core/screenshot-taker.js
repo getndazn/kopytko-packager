@@ -1,6 +1,8 @@
 const fs = require('fs-extra');
 const path = require('path');
-const request = require('request-promise');
+const { Readable } = require('stream');
+const { pipeline } = require('stream/promises');
+const { postFormWithDigestAuth, fetchWithDigestAuth } = require('./digest-auth');
 
 const KopytkoError = require('../errors/kopytko-error');
 
@@ -32,18 +34,17 @@ module.exports = class ScreenshotTaker {
       if (screenshotUriPath) {
         await fs.ensureDir(this._config.screenshotDir);
 
-        return new Promise(resolve => {
-          const screenshotFilePath = path.join(this._config.screenshotDir, `Screenshot_${new Date().toISOString()}.jpg`)
-          const file = fs.createWriteStream(screenshotFilePath);
-
-          file.on('finish', resolve);
-
-          this._downloadScreenshot({
-            screenshotUri: `http://${this._config.rokuIP}/${screenshotUriPath}`,
-            ...this._config,
-          })
-            .pipe(file);
+        const screenshotFilePath = path.join(this._config.screenshotDir, `Screenshot_${new Date().toISOString()}.jpg`);
+        const downloadResponse = await this._downloadScreenshot({
+          screenshotUri: `http://${this._config.rokuIP}/${screenshotUriPath}`,
+          ...this._config,
         });
+
+        const nodeStream = Readable.fromWeb(downloadResponse.body);
+        const file = fs.createWriteStream(screenshotFilePath);
+        await pipeline(nodeStream, file);
+
+        return;
       }
 
       throw new KopytkoError('Something went wrong. Check if Roku does not have a screen saver on.');
@@ -53,30 +54,24 @@ module.exports = class ScreenshotTaker {
   }
 
   _sendRequest({ action, rokuIP, rokuDevPassword, rokuDevUser }) {
-    return request({
-      method: 'POST',
-      uri: `http://${rokuIP}/plugin_inspect`,
-      formData: {
-        mysubmit: action,
-      },
-      auth: {
-        user: rokuDevUser,
-        pass: rokuDevPassword,
-        sendImmediately: false,
-      },
-      resolveWithFullResponse: true,
-    });
+    const fields = [
+      { name: 'mysubmit', value: action },
+    ];
+
+    return postFormWithDigestAuth(
+      `http://${rokuIP}/plugin_inspect`,
+      fields,
+      { user: rokuDevUser, pass: rokuDevPassword },
+      { resolveWithFullResponse: true },
+    );
   }
 
   _downloadScreenshot({ rokuDevUser, rokuDevPassword, screenshotUri }) {
-    return request({
-      method: 'GET',
-      uri: screenshotUri,
-      auth: {
-        user: rokuDevUser,
-        pass: rokuDevPassword,
-        sendImmediately: false,
-      },
-    });
+    return fetchWithDigestAuth(
+      screenshotUri,
+      { method: 'GET' },
+      { user: rokuDevUser, pass: rokuDevPassword },
+      { stream: true },
+    );
   }
 }

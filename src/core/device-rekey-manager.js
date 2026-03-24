@@ -1,5 +1,5 @@
 const fs = require('fs');
-const request = require('request-promise');
+const { postFormWithDigestAuth } = require('./digest-auth');
 const xml2js = require('xml2js');
 
 const KopytkoError = require('../errors/kopytko-error');
@@ -38,7 +38,7 @@ module.exports = class DeviceRekeyManager {
     }
 
     const response = await this._sendRekeyRequest({
-      archive: fs.createReadStream(rekeySignedArchivePath),
+      archivePath: rekeySignedArchivePath,
       ...this._config,
     });
 
@@ -67,42 +67,45 @@ module.exports = class DeviceRekeyManager {
     return deviceInfo['keyed-developer-id'];
   }
 
-  _sendRekeyRequest({ archive, rokuDevPassword, rokuDevSigningPassword, rokuDevUser, rokuIP }) {
-    return request({
-      method: 'POST',
-      uri: `http://${rokuIP}/plugin_inspect`,
-      formData: {
-        mysubmit: 'Rekey',
-        passwd: rokuDevSigningPassword,
-        archive,
+  async _sendRekeyRequest({ archivePath, rokuDevPassword, rokuDevSigningPassword, rokuDevUser, rokuIP }) {
+    const fields = [
+      { name: 'mysubmit', value: 'Rekey' },
+      { name: 'passwd', value: rokuDevSigningPassword },
+      {
+        name: 'archive',
+        value: fs.readFileSync(archivePath),
+        filename: 'archive.pkg',
+        contentType: 'application/octet-stream',
       },
-      auth: {
-        user: rokuDevUser,
-        pass: rokuDevPassword,
-        sendImmediately: false,
-      },
-      resolveWithFullResponse: true,
-    }).catch(error => {
+    ];
+
+    try {
+      return await postFormWithDigestAuth(
+        `http://${rokuIP}/plugin_inspect`,
+        fields,
+        { user: rokuDevUser, pass: rokuDevPassword },
+        { resolveWithFullResponse: true },
+      );
+    } catch (error) {
       if (error.statusCode === 401) {
         throw new KopytkoError('Bad Roku Developer credentials.');
       }
 
       throw new KopytkoError(`Unknown error. HTTP status code: ${error.statusCode}`, error);
-    });
+    }
   }
 
-  _sendDeviceInfoRequest({ rokuIP }) {
-    return request({
-      method: 'GET',
-      uri: `http://${rokuIP}:8060/query/device-info`,
-    }).then(async response => {
-      const jsResponse = await xml2js.parseStringPromise(response, {
-        explicitArray: false
+  async _sendDeviceInfoRequest({ rokuIP }) {
+    try {
+      const response = await fetch(`http://${rokuIP}:8060/query/device-info`);
+      const responseText = await response.text();
+      const jsResponse = await xml2js.parseStringPromise(responseText, {
+        explicitArray: false,
       });
 
       return jsResponse['device-info'];
-    }).catch(error => {
+    } catch (error) {
       throw new KopytkoError(`Unknown error. HTTP status code: ${error.statusCode}`, error);
-    });
+    }
   }
 }

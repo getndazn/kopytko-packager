@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/getndazn/kopytko-packager/compare/v1.4.1...v1.4.2) (2026-03-25)
+
+
+### Bug Fixes
+
+* upgrade dependencies with node 24 ([#76](https://github.com/getndazn/kopytko-packager/issues/76)) ([f909255](https://github.com/getndazn/kopytko-packager/commit/f90925548fefaff563c5f15a0b27d80d45cfe09f))
+
 ## [1.4.1](https://github.com/getndazn/kopytko-packager/compare/v1.4.0...v1.4.1) (2026-03-25)
 
 

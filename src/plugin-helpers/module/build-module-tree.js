@@ -55,6 +55,10 @@ const mapDependencies = (dependenciesDetails, parentDir = null) => {
 const mapDependency = (name, details, parentDir) => {
   const npmPackageDir = findDir(name, parentDir);
 
+  if (!FileHandler.exists(path.join(npmPackageDir, 'package.json'))) {
+    return null;
+  }
+
   const packageJson = FileHandler.readSync(path.join(npmPackageDir, 'package.json'));
   const packageInfo = JSON.parse(packageJson);
   if (!(packageInfo.keywords || []).includes(KOPYTKO_MODULE_KEYWORD)) {

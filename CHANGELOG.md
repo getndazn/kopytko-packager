@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/getndazn/kopytko-packager/compare/v1.4.0...v1.4.1) (2026-03-25)
+
+
+### Bug Fixes
+
+* failing deploy script ([#75](https://github.com/getndazn/kopytko-packager/issues/75)) ([b410758](https://github.com/getndazn/kopytko-packager/commit/b410758b8b60b391ef67f0001408cd9540f63578))
+
 # [1.4.0](https://github.com/getndazn/kopytko-packager/compare/v1.3.1...v1.4.0) (2026-03-24)
 
 

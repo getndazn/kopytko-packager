@@ -1,6 +1,8 @@
-const Telnet = require('telnet-client');
+const net = require('net');
 const term = require('terminal-kit').terminal;
 
+const CONNECTION_PORT = 8085;
+const CONNECTION_TIMEOUT = 5000;
 const IDLE_PROMPT = 'Brightscript Debugger> ';
 const START_MESSAGE = '------ Compiling dev';
 
@@ -14,41 +16,35 @@ module.exports = async function telnet(rokuIP) {
     }
   });
 
-  const connection = new Telnet()
-  const params = {
-    host: rokuIP,
-    port: 8085,
-    shellPrompt: '',
-    timeout: 5000,
-  }
-
   term('→ Intercepting telnet output\n');
 
-  connection.on('timeout', () => {
-    if (connection.connecting) {
-      term.red('Connection timeout\n');
-      connection.end();
-    }
+  const socket = net.createConnection({ host: rokuIP, port: CONNECTION_PORT });
+
+  socket.setTimeout(CONNECTION_TIMEOUT);
+
+  socket.on('timeout', () => {
+    if (!socket.connecting) return;
+
+    term.red('Connection timeout\n');
+    socket.destroy();
   });
-  connection.on('close', () => term.red('  Connection closed\n'));
 
-  try {
-    await connection.connect(params);
-  } catch (error) {
-    term.red(`  Telnet error: ${error}`);
-
-    throw error;
-  }
-
-  term.green('  Connection ready\n')
-
-  connection.shell((_, stream) => {
-    stream.on('data', data => onDataReceived(data, stream));
+  socket.on('error', (error) => {
+    term.red(`  Telnet error: ${error.message}\n`);
   });
+
+  socket.on('close', () => term.red('  Connection closed\n'));
+
+  socket.on('connect', () => {
+    socket.setTimeout(0); // disable timeout once connected — session is interactive
+    term.green('  Connection ready\n');
+  });
+
+  // @todo filter key strings and write them in specific color
+  socket.on('data', (data) => onDataReceived(data, socket));
 }
 
-// @todo filter key strings and write them in specific color
-function onDataReceived(data, stream) {
+function onDataReceived(data, socket) {
   let dataString = data.toString();
 
   if (!printOutput) {
@@ -63,14 +59,14 @@ function onDataReceived(data, stream) {
 
   // avoid typing in the new line in Brightscript Debugger
   if (dataString.slice(IDLE_PROMPT.length * -1) === IDLE_PROMPT) {
-    initInputField(input => stream.write(input + '\r\n'));
+    initInputField(input => socket.write(input + '\r\n'));
   }
 }
 
 function initInputField(callback) {
   term.inputField(
     {},
-    (_, input) => {
+    (_error, input) => {
       callback(input);
       term('\n');
     }

@@ -1,3 +1,10 @@
+## [1.4.3](https://github.com/getndazn/kopytko-packager/compare/v1.4.2...v1.4.3) (2026-07-06)
+
+
+### Bug Fixes
+
+* too much memory used on import dependencies plugin run ([#77](https://github.com/getndazn/kopytko-packager/issues/77)) ([dee255e](https://github.com/getndazn/kopytko-packager/commit/dee255e586017eb10ca5f0741ae4328c2b3cbd59))
+
 ## [1.4.2](https://github.com/getndazn/kopytko-packager/compare/v1.4.1...v1.4.2) (2026-03-25)
 
 

@@ -5,6 +5,7 @@ const KopytkoError = require('../../../errors/kopytko-error');
 const BrightscriptDependencies = require('../../../plugin-helpers/brightscript/brightscript-dependencies');
 const FileHandler = require('../../../plugin-helpers/file-handler');
 
+const BATCH_SIZE = 50;
 const BRIGHTSCRIPT_FILE_PATH_PATTERN = '/components/**/*.brs';
 const BRIGHTSCRIPT_LOCAL_DEPENDENCY_PREFIX = 'pkg:';
 
@@ -17,22 +18,22 @@ module.exports = class DependenciesMappingGenerator {
 
   async generate(dir) {
     const brsFilePaths = await glob(path.join(dir, BRIGHTSCRIPT_FILE_PATH_PATTERN), {});
-    const filesImportPaths = await Promise.all(
-      brsFilePaths.map(async filePath => (await this._getBrightscriptDependencies(filePath)).getImportPaths())
-    );
     const mapping = {};
 
-    brsFilePaths
-      .map(path => path.replace(dir, BRIGHTSCRIPT_LOCAL_DEPENDENCY_PREFIX))
-      .forEach((brsFileUri, index) => {
-        const fileImportPaths = filesImportPaths[index];
+    for (let i = 0; i < brsFilePaths.length; i += BATCH_SIZE) {
+      const batch = brsFilePaths.slice(i, i + BATCH_SIZE);
+      const batchResults = await Promise.all(
+        batch.map(async (filePath) => ({
+          uri: filePath.replace(dir, BRIGHTSCRIPT_LOCAL_DEPENDENCY_PREFIX),
+          importPaths: (await this._getBrightscriptDependencies(filePath)).getImportPaths(),
+        }))
+      );
 
-        this._checkCircularDependency(mapping, fileImportPaths, brsFileUri);
-
-        mapping[brsFileUri] = {
-          dependencies: fileImportPaths,
-        };
-      });
+      for (const { uri, importPaths } of batchResults) {
+        this._checkCircularDependency(mapping, importPaths, uri);
+        mapping[uri] = { dependencies: importPaths };
+      }
+    }
 
     return mapping;
   }

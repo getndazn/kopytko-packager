@@ -20,10 +20,19 @@ module.exports = class DependenciesImporter {
   }
 
   _findSubDependenciesToAdd(dependencies) {
-    const subDependencies = dependencies.reduce((allSubDependencies, dependency) => {
-      return allSubDependencies.concat(this._finder.find(dependency));
-    }, []);
+    const existingDependencies = new Set(dependencies);
+    const seen = new Set();
+    const subDependencies = [];
 
-    return [...new Set(subDependencies)].filter(subDependency => !dependencies.includes(subDependency));
+    for (const dependency of dependencies) {
+      for (const found of this._finder.find(dependency)) {
+        if (!existingDependencies.has(found) && !seen.has(found)) {
+          seen.add(found);
+          subDependencies.push(found); // ← single array, no copies, deduped inline
+        }
+      }
+    }
+
+    return subDependencies;
   }
 }

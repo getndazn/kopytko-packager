@@ -8,27 +8,27 @@ module.exports = class DependenciesFinder {
       return [];
     }
 
-    const fileDependencies = this._findAllDependencies(filePath);
-
-    return [...new Set(fileDependencies)];
+    return this._findAllDependencies(filePath);
   }
 
   _findAllDependencies(filePath) {
     const allDependencies = [];
-    const dependenciesToCheck = this._getSubDependencies(filePath);
+    const visited = new Set();
+    const dependenciesToCheck = [...this._getSubDependencies(filePath)];
     let dependencyIndex = 0;
 
     while (dependencyIndex < dependenciesToCheck.length) {
-      let dependency = dependenciesToCheck[dependencyIndex];
+      const dependency = dependenciesToCheck[dependencyIndex];
+      dependencyIndex++;
+
+      if (visited.has(dependency)) continue; // ← skip already-processed nodes
+      visited.add(dependency);
 
       allDependencies.push(dependency);
 
       if (this._mapping[dependency]) {
-        const subDependencies = this._getSubDependencies(dependency);
-        dependenciesToCheck.push(...subDependencies);
+        dependenciesToCheck.push(...this._getSubDependencies(dependency));
       }
-
-      dependencyIndex++;
     }
 
     return allDependencies;
